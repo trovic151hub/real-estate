@@ -5,714 +5,859 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Estatevita</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   <style>
-  /* Chrome, Safari */
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
+    body { font-family: 'DM Sans', sans-serif; }
+    h1, h2, h3, .font-serif { font-family: 'Playfair Display', serif; }
 
-  /* Firefox */
-  .scrollbar-hide {
-    scrollbar-width: none;
-  }
+    /* Scrollbar hide */
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { scrollbar-width: none; -ms-overflow-style: none; }
 
-  /* IE / Edge */
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-  }
-</style>
+    /* Floating animation for hero card */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+    }
+    .float-card { animation: float 5s ease-in-out infinite; }
+
+    /* Glass morphism */
+    .glass {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    .glass-dark {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    /* Property card image hover effect */
+    .prop-card { overflow: hidden; }
+    .prop-card .prop-img {
+      transition: transform 0.5s ease;
+    }
+    .prop-card:hover .prop-img {
+      transform: scale(1.06);
+    }
+    .prop-card .prop-overlay {
+      transition: opacity 0.4s ease;
+    }
+    .prop-card:hover .prop-overlay {
+      opacity: 1 !important;
+    }
+
+    /* Featured listing card image hover */
+    .listing-card { position: relative; overflow: hidden; }
+    .listing-card .listing-img-wrap {
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .listing-card .listing-img {
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .listing-card .view-btn {
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .listing-card:hover .listing-img-wrap {
+      width: 100% !important;
+      border-radius: 12px !important;
+      margin-bottom: 0;
+    }
+    .listing-card:hover .listing-img {
+      width: 100% !important;
+      height: 220px !important;
+      border-radius: 12px !important;
+    }
+    .listing-card:hover .view-btn { opacity: 1; }
+    .listing-card:hover .listing-details { display: none; }
+    .listing-card:hover .listing-title { display: none; }
+    .listing-card:hover .listing-meta { display: none; }
+
+    /* Service card hover */
+    .service-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(15, 76, 159, 0.15);
+    }
+
+    /* Testimonial card hover */
+    .testi-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .testi-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px rgba(59, 130, 246, 0.15);
+    }
+
+    /* Smooth navbar transition on scroll */
+    .navbar-scrolled {
+      background: rgba(255, 255, 255, 0.92) !important;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    }
+  </style>
 </head>
-<body class="bg-[#ffffff]">
+<body class="bg-white">
 
-  <!-- NAVBAR -->
-  <header class="flex items-center justify-between px-48 py-1.5 bg-white">
-    
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- NAVBAR — Fixed glass morphism                       -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-10 md:px-24 py-3 transition-all duration-300"
+    style="background: rgba(255,255,255,0.15); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border-bottom: 1px solid rgba(255,255,255,0.25);">
+
     <!-- LOGO -->
     <div class="flex items-center gap-2">
-      <span class="text-blue-600 text-3xl">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" viewBox="0 0 512 512">
-        <path fill="currentColor" d="M261.56 101.28a8 8 0 0 0-11.06 0L66.4 277.15a8 8 0 0 0-2.47 5.79L63.9 448a32 32 0 0 0 32 32H192a16 16 0 0 0 16-16V328a8 8 0 0 1 8-8h80a8 8 0 0 1 8 8v136a16 16 0 0 0 16 16h96.06a32 32 0 0 0 32-32V282.94a8 8 0 0 0-2.47-5.79Z"/>
-        <path fill="currentColor" d="m490.91 244.15l-74.8-71.56V64a16 16 0 0 0-16-16h-48a16 16 0 0 0-16 16v32l-57.92-55.38C272.77 35.14 264.71 32 256 32c-8.68 0-16.72 3.14-22.14 8.63l-212.7 203.5c-6.22 6-7 15.87-1.34 22.37A16 16 0 0 0 43 267.56L250.5 69.28a8 8 0 0 1 11.06 0l207.52 198.28a16 16 0 0 0 22.59-.44c6.14-6.36 5.63-16.86-.76-22.97"/>
+      <span class="text-blue-500">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 512 512">
+          <path fill="currentColor" d="M261.56 101.28a8 8 0 0 0-11.06 0L66.4 277.15a8 8 0 0 0-2.47 5.79L63.9 448a32 32 0 0 0 32 32H192a16 16 0 0 0 16-16V328a8 8 0 0 1 8-8h80a8 8 0 0 1 8 8v136a16 16 0 0 0 16 16h96.06a32 32 0 0 0 32-32V282.94a8 8 0 0 0-2.47-5.79Z"/>
+          <path fill="currentColor" d="m490.91 244.15l-74.8-71.56V64a16 16 0 0 0-16-16h-48a16 16 0 0 0-16 16v32l-57.92-55.38C272.77 35.14 264.71 32 256 32c-8.68 0-16.72 3.14-22.14 8.63l-212.7 203.5c-6.22 6-7 15.87-1.34 22.37A16 16 0 0 0 43 267.56L250.5 69.28a8 8 0 0 1 11.06 0l207.52 198.28a16 16 0 0 0 22.59-.44c6.14-6.36 5.63-16.86-.76-22.97"/>
         </svg>
-        </span>
-      <span class="text-3xl font-medium text-gray-700">Estatevita</span>
+      </span>
+      <span class="text-2xl font-semibold text-gray-800" style="font-family:'Playfair Display',serif;">Estatevita</span>
     </div>
 
     <!-- NAV LINKS -->
-    <nav class="hidden md:flex gap-16 text-gray-700">
-      <a href="#" class="text-blue-600 font-medium">Home</a>
-      <a href="#">Properties</a>
-      <a href="#">About</a>
-      <a href="#">Contact Us</a>
+    <nav class="hidden md:flex gap-12 text-gray-700 font-medium">
+      <a href="#" class="text-blue-600 hover:text-blue-700 transition">Home</a>
+      <a href="#" class="hover:text-blue-600 transition">Properties</a>
+      <a href="#" class="hover:text-blue-600 transition">About</a>
+      <a href="#" class="hover:text-blue-600 transition">Contact Us</a>
     </nav>
 
     <!-- AUTH -->
-    <div class="flex items-center gap-10">
-      <a href="#" class="text-gray-700">Login</a>
-
-        <!-- Vertical Line -->
-  <div class="border-l-2 h-10 border-gray-500 -mr-6"></div>
-
-      <button class="border-2 border-[#0f4c9f] text-gray-800 px-7 py-2 rounded-[15px] hover:bg-blue-600 hover:text-white transition">
+    <div class="flex items-center gap-6">
+      <a href="#" class="text-gray-700 font-medium hover:text-blue-600 transition">Login</a>
+      <div class="border-l-2 h-7 border-gray-400"></div>
+      <button class="border-2 border-blue-600 text-blue-700 px-6 py-2 rounded-full font-medium hover:bg-blue-600 hover:text-white transition-all duration-300">
         Sign Up
       </button>
     </div>
   </header>
 
-  <!-- HERO -->
-  <section class="relative h-[90vh] flex items-center px-10">
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- HERO                                                -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <section class="relative h-screen flex items-center px-10 md:px-20">
 
-    <!-- BACKGROUND IMAGE -->
-    <img src="https://www.vanulaw.com/wp-content/uploads/2017/10/house-03.jpg" 
+    <img src="https://www.vanulaw.com/wp-content/uploads/2017/10/house-03.jpg"
          class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/20"></div>
 
-    <!-- DARK OVERLAY -->
-    <div class="absolute inset-0 bg-black/40"></div>
-
-    <!-- CONTENT -->
-    <div class="relative z-10 w-full flex items-center justify-between">
+    <div class="relative z-10 w-full flex items-center justify-between pt-20">
 
       <!-- LEFT TEXT -->
       <div class="max-w-xl text-white">
-        <h1 class="text-5xl md:text-6xl font-bold leading-tight">
-          Home Is Where <br>
-          Your Story Begins.
-        </h1>
-
-        <p class="mt-4 mb-10 text-lg text-gray-200">
-          Unlock your dream home explore endless possibilities with <br>
-          <span class="text-blue-400 font-medium">EstateVista</span> - 
-          your premier real estate destination.
-        </p>
-
-        <span class=" text-2xl px-24 py-2.5 bg-blue-600 rounded-full border-2 border-white text-gray-200">
-            <a href="#" class="" >Find Properties</a>
+        <span class="inline-block text-sm font-medium tracking-widest text-blue-300 uppercase mb-4 px-3 py-1 rounded-full border border-blue-400/40 bg-blue-500/10">
+          Premier Real Estate
         </span>
+        <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-5">
+          Home Is Where <br>
+          <span class="text-blue-400">Your Story</span> Begins.
+        </h1>
+        <p class="mb-10 text-lg text-gray-300 leading-relaxed">
+          Unlock your dream home and explore endless possibilities with<br>
+          <span class="text-blue-400 font-semibold">EstateVista</span> — your premier real estate destination.
+        </p>
+        <a href="#" class="inline-block text-lg px-10 py-3.5 bg-blue-600 rounded-full border-2 border-white/30 text-white font-medium hover:bg-blue-700 hover:scale-105 transition-all duration-300 shadow-lg shadow-blue-600/30">
+          Find Properties
+        </a>
+
+        <!-- Stats -->
+        <div class="flex gap-8 mt-12">
+          <div>
+            <p class="text-3xl font-bold text-white">1,200+</p>
+            <p class="text-sm text-gray-400 mt-1">Properties Listed</p>
+          </div>
+          <div class="border-l border-white/20 pl-8">
+            <p class="text-3xl font-bold text-white">850+</p>
+            <p class="text-sm text-gray-400 mt-1">Happy Clients</p>
+          </div>
+          <div class="border-l border-white/20 pl-8">
+            <p class="text-3xl font-bold text-white">12+</p>
+            <p class="text-sm text-gray-400 mt-1">Years Experience</p>
+          </div>
+        </div>
       </div>
 
-      <!-- SEARCH CARD -->
-      <div class="hidden md:block bg-white rounded-2xl shadow-2xl mt-28 p-6 w-[500px] h-[520px]">
+      <!-- SEARCH CARD — Floating glass -->
+      <div class="hidden md:block float-card rounded-2xl p-7 w-[440px] shadow-2xl"
+           style="background: rgba(255,255,255,0.14); backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px); border: 1px solid rgba(255,255,255,0.3);">
 
-        <h2 class="text-xl font-semibold mb-4 text-gray-800">
+        <h2 class="text-xl font-semibold mb-5 text-white" style="font-family:'Playfair Display',serif;">
           Find Your Dream Home
         </h2>
 
-        <!-- Location -->
-        <div class="mb-3">
-          <label class="text-sm text-gray-600">Location</label>
-          <input type="text" placeholder="Enter a city or neighborhood"
-            class="w-full mt-1 p-3 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500">
-        </div>
-
-        <!-- Property -->
-        <div class="mb-3">
-          <label class="text-sm text-gray-600">Property type</label>
-          <select class="w-full mt-1 p-3 border rounded-lg">
-            <option>Any type</option>
-          </select>
-        </div>
-
-        <!-- Price -->
         <div class="mb-4">
-          <label class="text-sm text-gray-600">Price Range</label>
-          <select class="w-full mt-1 p-3 border rounded-lg">
-            <option>Any price</option>
+          <label class="text-xs font-medium text-white/70 uppercase tracking-wider">Location</label>
+          <input type="text" placeholder="Enter a city or neighborhood"
+            class="w-full mt-1.5 p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-400 text-gray-800 placeholder-gray-400"
+            style="background: rgba(255,255,255,0.85);">
+        </div>
+
+        <div class="mb-4">
+          <label class="text-xs font-medium text-white/70 uppercase tracking-wider">Property Type</label>
+          <select class="w-full mt-1.5 p-3 rounded-xl text-gray-700"
+                  style="background: rgba(255,255,255,0.85);">
+            <option>Any type</option>
+            <option>Villa</option>
+            <option>Apartment</option>
+            <option>Penthouse</option>
+            <option>Duplex</option>
           </select>
         </div>
 
-        <button class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition">
-          Search
-        </button>
+        <div class="mb-6">
+          <label class="text-xs font-medium text-white/70 uppercase tracking-wider">Price Range</label>
+          <select class="w-full mt-1.5 p-3 rounded-xl text-gray-700"
+                  style="background: rgba(255,255,255,0.85);">
+            <option>Any price</option>
+            <option>Under ₦100M</option>
+            <option>₦100M – ₦300M</option>
+            <option>₦300M – ₦500M</option>
+            <option>Above ₦500M</option>
+          </select>
+        </div>
 
+        <button class="w-full bg-blue-600 text-white py-3.5 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg shadow-blue-600/30">
+          <i class="fas fa-search mr-2"></i> Search Properties
+        </button>
       </div>
 
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- GALLERY + LASTING ACHIEVEMENT                       -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <section class="relative bg-gradient-to-b from-gray-100 to-[#0d1117] pt-20 pb-20 overflow-hidden">
+
+    <div class="flex justify-center items-end -space-x-3 relative z-10">
+
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
+        class="w-[180px] h-[270px] object-cover rotate-[-8deg] -translate-y-6 -translate-x-16
+        border-8 border-white shadow-2xl rounded-sm transition-transform duration-300 hover:-translate-y-10 hover:z-20 hover:scale-105 hover:rotate-0">
+
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoFT9Zd253lRPIwsQmQbIBfC3G4WIVWQU9Vw&s"
+        class="w-[220px] h-[270px] object-cover rotate-[18deg] -translate-y-6 -translate-x-8
+        border-8 border-white shadow-2xl rounded-sm transition-transform duration-300 hover:-translate-y-10 hover:z-20 hover:scale-105 hover:rotate-0">
+
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs8Befu6WYuwMjiCEr1_rXrQ5RU67TXtC4UA&s"
+        class="w-[220px] h-[270px] object-cover rotate-[-3deg] -translate-y-3 -translate-x-4
+        border-8 border-white shadow-2xl rounded-sm transition-transform duration-300 hover:-translate-y-10 hover:z-20 hover:scale-105 hover:rotate-0">
+
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6XB9yeL4PjXMuOR4ifjVwhOUYvyPshAN3lw&s"
+        class="w-[280px] h-[360px] object-cover rotate-[11deg] translate-y-6
+        border-8 border-white shadow-2xl z-30 scale-110 rounded-sm transition-transform duration-300 hover:-translate-y-4 hover:z-40 hover:scale-115 hover:rotate-0">
+
+      <img src="https://www.11prop.com/_next/image?url=https%3A%2F%2Fimages.prismic.io%2F11prop-blog%2FZxYdpIF3NbkBXwoe_1-StrategiesforBreakingintotheHigh-EndLuxuryRealEstateMarket-Shutterstock-copy.webp%3Fauto%3Dformat%2Ccompress&w=3840&q=75"
+        class="w-[220px] h-[270px] object-cover rotate-[-5deg] -translate-y-6 translate-x-4
+        border-8 border-white shadow-2xl rounded-sm transition-transform duration-300 hover:-translate-y-10 hover:z-20 hover:scale-105 hover:rotate-0">
+
+      <img src="https://aihkcdnstoragep01.blob.core.windows.net/pgl-release/Images/ArticleImages/24/24867_400.png"
+        class="w-[220px] h-[270px] object-cover rotate-[18deg] -translate-y-4 translate-x-8
+        border-8 border-white shadow-2xl rounded-sm transition-transform duration-300 hover:-translate-y-10 hover:z-20 hover:scale-105 hover:rotate-0">
+
+      <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c"
+        class="w-[180px] h-[260px] object-cover rotate-[-10deg] -translate-y-2 translate-x-16
+        border-8 border-white shadow-2xl rounded-sm transition-transform duration-300 hover:-translate-y-10 hover:z-20 hover:scale-105 hover:rotate-0">
+    </div>
+
+    <div class="mt-20 px-10 md:px-24 text-white grid md:grid-cols-2 gap-16 items-center">
+      <div>
+        <p class="text-blue-400 text-sm font-medium uppercase tracking-widest mb-3">Our Legacy</p>
+        <h2 class="text-5xl md:text-6xl font-serif leading-tight">
+          Lasting <br> <span class="italic text-blue-400">Achievement</span>
+        </h2>
+      </div>
+      <div class="text-gray-300 leading-relaxed text-lg border-l border-white/10 pl-10">
+        <p>
+          Discover your perfect home and begin your story:
+          <span class="text-blue-400 font-medium">Estatevista</span>
+          — where every dream finds its place, every journey begins,
+          and every achievement shines bright. The promise of home
+          becomes reality, each moment becomes a memory, and every achievement endures.
+        </p>
+        <div class="mt-8 flex gap-6">
+          <div class="text-center">
+            <p class="text-2xl font-bold text-white">₦50B+</p>
+            <p class="text-sm text-gray-500 mt-1">Properties Sold</p>
+          </div>
+          <div class="text-center border-l border-white/10 pl-6">
+            <p class="text-2xl font-bold text-white">98%</p>
+            <p class="text-sm text-gray-500 mt-1">Satisfaction Rate</p>
+          </div>
+          <div class="text-center border-l border-white/10 pl-6">
+            <p class="text-2xl font-bold text-white">25+</p>
+            <p class="text-sm text-gray-500 mt-1">Cities Covered</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- FEATURED LISTINGS                                   -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <section class="px-10 md:px-20 py-20 bg-white">
+
+    <div class="border border-gray-200 -mt-4 mb-14"></div>
+
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-14">
+      <div>
+        <p class="text-blue-600 text-sm font-medium uppercase tracking-widest mb-2">Hand-picked for you</p>
+        <h2 class="text-4xl md:text-5xl font-serif">Featured Listings</h2>
+      </div>
+      <p class="max-w-md text-gray-500 leading-relaxed">
+        Dive into our exquisite collection at
+        <span class="text-blue-600 font-medium">Estatevista</span> —
+        where every corner whispers comfort and every detail is crafted with perfection.
+      </p>
+    </div>
+
+    <div id="cardContainer" class="overflow-x-auto scroll-smooth scrollbar-hide">
+      <div class="flex gap-6 w-max snap-x snap-mandatory">
+
+        <!-- CARD 1 -->
+        <div class="listing-card min-w-[380px] snap-start rounded-2xl p-6 border border-gray-200 bg-white shadow-sm hover:shadow-xl transition-shadow duration-300 cursor-pointer">
+          <h3 class="listing-title text-2xl font-serif font-medium mb-1 text-center">EstateVita Residences</h3>
+          <div class="listing-meta flex justify-between text-gray-500 text-sm mb-5 mt-2">
+            <span class="flex items-center gap-1"><i class="fas fa-tag text-blue-400"></i> Luxury Villa</span>
+            <span class="flex items-center gap-1"><i class="fas fa-location-dot text-blue-400"></i> Lekki Phase 1</span>
+          </div>
+          <div class="listing-img-wrap relative flex justify-center mb-5 w-[200px] h-[200px] mx-auto rounded-full overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
+              class="listing-img w-full h-full object-cover">
+            <div class="view-btn absolute inset-0 flex items-center justify-center bg-black/40 rounded-full">
+              <span class="bg-white text-blue-700 text-sm font-semibold px-5 py-2 rounded-full shadow-lg hover:bg-blue-600 hover:text-white transition">View Details</span>
+            </div>
+          </div>
+          <div class="listing-details flex justify-between items-end pt-2 border-t border-gray-100">
+            <div class="text-gray-600 space-y-1 text-sm">
+              <p><i class="fas fa-bed w-4 text-blue-400 mr-1"></i> 4 Bed Rooms</p>
+              <p><i class="fas fa-bath w-4 text-blue-400 mr-1"></i> 5 Bath Rooms</p>
+              <p><i class="fas fa-couch w-4 text-blue-400 mr-1"></i> 2 Living Rooms</p>
+              <p><i class="fas fa-water-ladder w-4 text-blue-400 mr-1"></i> Swimming Pool</p>
+            </div>
+            <div class="text-right">
+              <p class="text-xs text-gray-400 mb-1">Starting from</p>
+              <p class="text-lg font-bold text-blue-700">₦ 300M</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="listing-card min-w-[380px] snap-start rounded-2xl p-6 border border-gray-200 bg-white shadow-sm hover:shadow-xl transition-shadow duration-300 cursor-pointer">
+          <h3 class="listing-title text-2xl font-serif font-medium mb-1 text-center">EstateVita Residences</h3>
+          <div class="listing-meta flex justify-between text-gray-500 text-sm mb-5 mt-2">
+            <span class="flex items-center gap-1"><i class="fas fa-tag text-blue-400"></i> Luxury Villa</span>
+            <span class="flex items-center gap-1"><i class="fas fa-location-dot text-blue-400"></i> Lekki Phase 1</span>
+          </div>
+          <div class="listing-img-wrap relative flex justify-center mb-5 w-[200px] h-[200px] mx-auto rounded-full overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c"
+              class="listing-img w-full h-full object-cover">
+            <div class="view-btn absolute inset-0 flex items-center justify-center bg-black/40 rounded-full">
+              <span class="bg-white text-blue-700 text-sm font-semibold px-5 py-2 rounded-full shadow-lg hover:bg-blue-600 hover:text-white transition">View Details</span>
+            </div>
+          </div>
+          <div class="listing-details flex justify-between items-end pt-2 border-t border-gray-100">
+            <div class="text-gray-600 space-y-1 text-sm">
+              <p><i class="fas fa-bed w-4 text-blue-400 mr-1"></i> 4 Bed Rooms</p>
+              <p><i class="fas fa-bath w-4 text-blue-400 mr-1"></i> 5 Bath Rooms</p>
+              <p><i class="fas fa-couch w-4 text-blue-400 mr-1"></i> 2 Living Rooms</p>
+              <p><i class="fas fa-water-ladder w-4 text-blue-400 mr-1"></i> Swimming Pool</p>
+            </div>
+            <div class="text-right">
+              <p class="text-xs text-gray-400 mb-1">Starting from</p>
+              <p class="text-lg font-bold text-blue-700">₦ 300M</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="listing-card min-w-[380px] snap-start rounded-2xl p-6 border border-gray-200 bg-white shadow-sm hover:shadow-xl transition-shadow duration-300 cursor-pointer">
+          <h3 class="listing-title text-2xl font-serif font-medium mb-1 text-center">EstateVita Residences</h3>
+          <div class="listing-meta flex justify-between text-gray-500 text-sm mb-5 mt-2">
+            <span class="flex items-center gap-1"><i class="fas fa-tag text-blue-400"></i> Luxury Villa</span>
+            <span class="flex items-center gap-1"><i class="fas fa-location-dot text-blue-400"></i> Lekki Phase 1</span>
+          </div>
+          <div class="listing-img-wrap relative flex justify-center mb-5 w-[200px] h-[200px] mx-auto rounded-full overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e"
+              class="listing-img w-full h-full object-cover">
+            <div class="view-btn absolute inset-0 flex items-center justify-center bg-black/40 rounded-full">
+              <span class="bg-white text-blue-700 text-sm font-semibold px-5 py-2 rounded-full shadow-lg hover:bg-blue-600 hover:text-white transition">View Details</span>
+            </div>
+          </div>
+          <div class="listing-details flex justify-between items-end pt-2 border-t border-gray-100">
+            <div class="text-gray-600 space-y-1 text-sm">
+              <p><i class="fas fa-bed w-4 text-blue-400 mr-1"></i> 3 Bed Rooms</p>
+              <p><i class="fas fa-bath w-4 text-blue-400 mr-1"></i> 3 Bath Rooms</p>
+              <p><i class="fas fa-couch w-4 text-blue-400 mr-1"></i> 2 Living Rooms</p>
+            </div>
+            <div class="text-right">
+              <p class="text-xs text-gray-400 mb-1">Starting from</p>
+              <p class="text-lg font-bold text-blue-700">₦ 400M</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 4 -->
+        <div class="listing-card min-w-[380px] snap-start rounded-2xl p-6 border border-gray-200 bg-white shadow-sm hover:shadow-xl transition-shadow duration-300 cursor-pointer">
+          <h3 class="listing-title text-2xl font-serif font-medium mb-1 text-center">EstateVita Residences</h3>
+          <div class="listing-meta flex justify-between text-gray-500 text-sm mb-5 mt-2">
+            <span class="flex items-center gap-1"><i class="fas fa-tag text-blue-400"></i> Luxury Apartment</span>
+            <span class="flex items-center gap-1"><i class="fas fa-location-dot text-blue-400"></i> Victoria Island</span>
+          </div>
+          <div class="listing-img-wrap relative flex justify-center mb-5 w-[200px] h-[200px] mx-auto rounded-full overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde"
+              class="listing-img w-full h-full object-cover">
+            <div class="view-btn absolute inset-0 flex items-center justify-center bg-black/40 rounded-full">
+              <span class="bg-white text-blue-700 text-sm font-semibold px-5 py-2 rounded-full shadow-lg hover:bg-blue-600 hover:text-white transition">View Details</span>
+            </div>
+          </div>
+          <div class="listing-details flex justify-between items-end pt-2 border-t border-gray-100">
+            <div class="text-gray-600 space-y-1 text-sm">
+              <p><i class="fas fa-bed w-4 text-blue-400 mr-1"></i> 2 Bed Rooms</p>
+              <p><i class="fas fa-bath w-4 text-blue-400 mr-1"></i> 2 Bath Rooms</p>
+              <p><i class="fas fa-couch w-4 text-blue-400 mr-1"></i> 1 Living Room</p>
+            </div>
+            <div class="text-right">
+              <p class="text-xs text-gray-400 mb-1">Starting from</p>
+              <p class="text-lg font-bold text-blue-700">₦ 200M</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 5 -->
+        <div class="listing-card min-w-[380px] snap-start rounded-2xl p-6 border border-gray-200 bg-white shadow-sm hover:shadow-xl transition-shadow duration-300 cursor-pointer">
+          <h3 class="listing-title text-2xl font-serif font-medium mb-1 text-center">EstateVita Residences</h3>
+          <div class="listing-meta flex justify-between text-gray-500 text-sm mb-5 mt-2">
+            <span class="flex items-center gap-1"><i class="fas fa-tag text-blue-400"></i> Penthouse</span>
+            <span class="flex items-center gap-1"><i class="fas fa-location-dot text-blue-400"></i> Ikoyi, Lagos</span>
+          </div>
+          <div class="listing-img-wrap relative flex justify-center mb-5 w-[200px] h-[200px] mx-auto rounded-full overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4"
+              class="listing-img w-full h-full object-cover">
+            <div class="view-btn absolute inset-0 flex items-center justify-center bg-black/40 rounded-full">
+              <span class="bg-white text-blue-700 text-sm font-semibold px-5 py-2 rounded-full shadow-lg hover:bg-blue-600 hover:text-white transition">View Details</span>
+            </div>
+          </div>
+          <div class="listing-details flex justify-between items-end pt-2 border-t border-gray-100">
+            <div class="text-gray-600 space-y-1 text-sm">
+              <p><i class="fas fa-bed w-4 text-blue-400 mr-1"></i> 5 Bed Rooms</p>
+              <p><i class="fas fa-bath w-4 text-blue-400 mr-1"></i> 6 Bath Rooms</p>
+              <p><i class="fas fa-couch w-4 text-blue-400 mr-1"></i> 3 Living Rooms</p>
+            </div>
+            <div class="text-right">
+              <p class="text-xs text-gray-400 mb-1">Starting from</p>
+              <p class="text-lg font-bold text-blue-700">₦ 500M</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="flex justify-center mt-10">
+      <button class="px-10 py-3 bg-blue-700 rounded-full text-white font-semibold hover:bg-blue-800 transition-all duration-300 shadow-lg shadow-blue-700/20">
+        See More Properties
+      </button>
+    </div>
+
+    <div class="border border-gray-200 mt-14"></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- VISION & MISSION                                    -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <section class="bg-[#7a5840] px-10 md:px-24 py-20 text-white">
+    <div class="grid md:grid-cols-2 gap-20 items-start">
+
+      <div class="flex flex-col gap-6">
+        <div>
+          <p class="text-amber-300 text-sm font-medium uppercase tracking-widest mb-2">Who We Are</p>
+          <h2 class="text-4xl md:text-5xl font-serif font-bold">Our Vision</h2>
+        </div>
+        <p class="text-amber-50/80 text-base leading-relaxed">
+          "At EstateVita, our vision is to redefine modern living by creating timeless, high-quality homes that elevate everyday life. We aim to design and deliver spaces that blend comfort, elegance, and functionality — offering not just buildings, but environments where individuals and families can truly thrive."
+        </p>
+        <div class="relative rounded-2xl overflow-hidden shadow-2xl mt-2">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
+               class="w-full h-[280px] object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-6 md:mt-20">
+        <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+          <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde"
+               class="w-full h-[280px] object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+        </div>
+        <div>
+          <p class="text-amber-300 text-sm font-medium uppercase tracking-widest mb-2">What Drives Us</p>
+          <h2 class="text-4xl md:text-5xl font-serif font-bold">Our Mission</h2>
+        </div>
+        <p class="text-amber-50/80 text-base leading-relaxed">
+          Our mission is to simplify the real estate journey by providing high-quality properties, trusted guidance, and seamless experiences. We are committed to helping individuals and families find spaces they can truly call home while delivering lasting value, comfort, and peace of mind in every step.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- SERVICES                                            -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <section class="px-10 md:px-20 py-20 bg-white">
+    <div class="text-center max-w-2xl mx-auto mb-14">
+      <p class="text-blue-600 text-sm font-medium uppercase tracking-widest mb-3">What We Offer</p>
+      <h2 class="text-4xl font-serif font-bold mb-4">Your Complete Real Estate Experience</h2>
+      <p class="text-gray-500 leading-relaxed">
+        At EstateVita, we go beyond selling properties to deliver a smooth and rewarding journey from start to finish — with a focus on quality, comfort, and value.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+
+      <div class="service-card bg-gradient-to-b from-[#eff3fc] to-[#e2eaf9] border border-[#c4d4ef] rounded-2xl p-8 flex flex-col gap-4 shadow-sm">
+        <div class="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center">
+          <i class="fas fa-home text-blue-600 text-2xl"></i>
+        </div>
+        <h3 class="text-2xl font-serif font-semibold mt-2">Finance a Home</h3>
+        <p class="text-gray-600 leading-relaxed">
+          Get the support you need to own your dream home with flexible and reliable financing options tailored to your budget.
+        </p>
+        <a href="#" class="text-blue-600 font-medium mt-2 inline-flex items-center gap-2 hover:gap-3 transition-all">
+          Learn More <i class="fas fa-arrow-right text-sm"></i>
+        </a>
+      </div>
+
+      <div class="service-card bg-gradient-to-b from-[#eff3fc] to-[#e2eaf9] border border-[#c4d4ef] rounded-2xl p-8 flex flex-col gap-4 shadow-sm">
+        <div class="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center">
+          <i class="fas fa-wallet text-blue-600 text-2xl"></i>
+        </div>
+        <h3 class="text-2xl font-serif font-semibold mt-2">Sell a Home</h3>
+        <p class="text-gray-600 leading-relaxed">
+          List your property with confidence and reach the right buyers through a smooth, efficient, and rewarding selling process.
+        </p>
+        <a href="#" class="text-blue-600 font-medium mt-2 inline-flex items-center gap-2 hover:gap-3 transition-all">
+          Learn More <i class="fas fa-arrow-right text-sm"></i>
+        </a>
+      </div>
+
+      <div class="service-card bg-gradient-to-b from-[#eff3fc] to-[#e2eaf9] border border-[#c4d4ef] rounded-2xl p-8 flex flex-col gap-4 shadow-sm">
+        <div class="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center">
+          <i class="fas fa-building-columns text-blue-600 text-2xl"></i>
+        </div>
+        <h3 class="text-2xl font-serif font-semibold mt-2">Rent a Home</h3>
+        <p class="text-gray-600 leading-relaxed">
+          Find comfortable and well-located rental spaces that suit your lifestyle, with a simple and stress-free experience.
+        </p>
+        <a href="#" class="text-blue-600 font-medium mt-2 inline-flex items-center gap-2 hover:gap-3 transition-all">
+          Learn More <i class="fas fa-arrow-right text-sm"></i>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- PROPERTY NEIGHBORHOODS                              -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <section class="px-10 md:px-20 py-20 bg-[#f0f4fc]">
+
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-14">
+      <div>
+        <p class="text-blue-600 text-sm font-medium uppercase tracking-widest mb-2">Explore Areas</p>
+        <h2 class="text-4xl md:text-5xl font-serif font-medium">Property Neighborhoods</h2>
+      </div>
+      <p class="text-gray-500 max-w-md leading-relaxed">
+        Experience thoughtfully designed neighborhoods where quality living meets convenience, security and a true sense of community.
+      </p>
+    </div>
+
+    <!-- Top Large Card -->
+    <div class="mb-6 prop-card relative rounded-2xl overflow-hidden shadow-lg cursor-pointer group">
+      <img src="https://sunriseandpartners.com/wp-content/uploads/2019/05/real-1-600x450-1.jpg"
+           class="prop-img w-full h-[460px] object-cover">
+      <div class="prop-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-80"></div>
+      <div class="absolute bottom-0 left-0 p-8 w-full">
+        <span class="inline-block bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full mb-3 uppercase tracking-wider">Featured</span>
+        <h3 class="text-3xl font-serif text-white mb-3">Luxury Villa</h3>
+        <div class="flex items-center gap-8 text-white/80 text-sm">
+          <span class="flex items-center gap-2"><i class="fas fa-border-all"></i> 1,800 Sq Ft</span>
+          <span class="flex items-center gap-2"><i class="fas fa-bed"></i> 5 Bedroom</span>
+          <span class="flex items-center gap-2"><i class="fas fa-bath"></i> 4 Bathroom</span>
+          <span class="ml-auto bg-white/20 backdrop-blur-sm text-white text-sm font-medium px-5 py-2 rounded-full border border-white/30 opacity-0 group-hover:opacity-100 transition-all duration-300">View Property →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Two Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div class="md:col-span-2 prop-card relative rounded-2xl overflow-hidden shadow-lg cursor-pointer group">
+        <img src="https://torbitalimited.com/wp-content/uploads/2018/09/real-estate.jpg"
+             class="prop-img w-full h-[380px] object-cover">
+        <div class="prop-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-80"></div>
+        <div class="absolute bottom-0 left-0 p-6 w-full">
+          <h4 class="text-2xl font-serif text-white mb-2">Modern Family Home</h4>
+          <div class="flex items-center gap-6 text-white/80 text-sm">
+            <span class="flex items-center gap-2"><i class="fas fa-border-all"></i> 1,500 Sq Ft</span>
+            <span class="flex items-center gap-2"><i class="fas fa-bed"></i> 4 Bedroom</span>
+            <span class="flex items-center gap-2"><i class="fas fa-bath"></i> 3 Bathroom</span>
+            <span class="ml-auto bg-white/20 backdrop-blur-sm text-white text-sm font-medium px-4 py-1.5 rounded-full border border-white/30 opacity-0 group-hover:opacity-100 transition-all duration-300">View →</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="prop-card relative rounded-2xl overflow-hidden shadow-lg cursor-pointer group">
+        <img src="https://fskyhomes.com/wp-content/uploads/2025/08/ff5d76ecf2e57a99f85e2ce4a3a68f0b.jpg"
+             class="prop-img w-full h-[380px] object-cover">
+        <div class="prop-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-80"></div>
+        <div class="absolute bottom-0 left-0 p-6 w-full">
+          <h4 class="text-2xl font-serif text-white mb-2">Cozy Apartment</h4>
+          <div class="flex flex-col gap-1 text-white/80 text-sm">
+            <span class="flex items-center gap-2"><i class="fas fa-border-all"></i> 900 Sq Ft</span>
+            <span class="flex items-center gap-2"><i class="fas fa-bed"></i> 2 Bedroom</span>
+            <span class="flex items-center gap-2"><i class="fas fa-bath"></i> 1 Bathroom</span>
+          </div>
+          <span class="mt-3 inline-block bg-white/20 backdrop-blur-sm text-white text-sm font-medium px-4 py-1.5 rounded-full border border-white/30 opacity-0 group-hover:opacity-100 transition-all duration-300">View →</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-center">
+      <button class="px-10 py-3 bg-blue-700 rounded-full text-white font-semibold hover:bg-blue-800 transition-all duration-300 shadow-lg shadow-blue-700/20">
+        See More Neighborhoods
+      </button>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- TESTIMONIALS                                        -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <section class="bg-white py-20 px-10 md:px-20">
+
+    <div class="text-center max-w-2xl mx-auto mb-14">
+      <p class="text-blue-600 text-sm font-medium uppercase tracking-widest mb-3">Client Stories</p>
+      <h2 class="text-4xl font-serif font-bold text-gray-900 mb-4">
+        Testimonials From Happy Clients
+      </h2>
+      <p class="text-gray-500 leading-relaxed">
+        Discover how EstateVita has delivered exceptional experiences, turning property dreams into reality for our valued clients.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- Card 1 -->
+      <div class="testi-card bg-gradient-to-b from-[#f0f4fc] to-[#e8eef8] border border-blue-200 rounded-2xl p-7 flex flex-col justify-between">
+        <div>
+          <div class="flex gap-1 text-amber-400 mb-4">
+            <i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="text-blue-400 mb-4" width="40" height="40" viewBox="0 0 24 24"><path fill="currentColor" d="M18.07 10.07c-.42 0-.83.07-1.22.17c.09-.3.17-.61.32-.88c.11-.31.29-.58.47-.84c.15-.29.41-.49.6-.74c.2-.24.47-.4.69-.6c.21-.21.49-.32.71-.46c.23-.13.43-.28.65-.35c.21-.09.39-.16.54-.22c.3-.12.47-.2.47-.2l-.48-1.94s-.22.05-.6.14c-.19.05-.42.1-.69.17c-.27.05-.56.19-.88.31c-.32.14-.69.24-1.03.47c-.34.22-.74.4-1.09.69c-.34.3-.75.56-1.05.94c-.33.36-.66.73-.91 1.16c-.29.41-.49.86-.7 1.3c-.19.44-.34.9-.47 1.34c-.24.88-.34 1.72-.38 2.44c-.03.72-.01 1.32.03 1.75c.02.2.04.4.06.54l.03.17c.2 2.56 2.31 4.58 4.93 4.58c2.74 0 4.96-2.22 4.96-4.96s-2.22-4.96-4.96-4.96Zm-11.98 0c-.42 0-.83.07-1.22.17c.09-.3.17-.61.32-.88c.11-.31.29-.58.47-.84c.15-.29.41-.49.6-.74c.2-.24.47-.4.69-.6c.21-.21.49-.32.71-.46c.23-.13.43-.28.65-.35c.21-.09.39-.16.54-.22c.3-.12.47-.2.47-.2l-.48-1.94s-.22.05-.6.14c-.19.05-.42.1-.69.17c-.27.05-.56.19-.88.31c-.32.14-.69.24-1.03.47c-.34.22-.74.4-1.09.69c-.34.3-.75.56-1.05.94c-.33.36-.66.73-.91 1.16c-.29.41-.49.86-.7 1.3c-.19.44-.34.9-.47 1.34c-.24.88-.34 1.72-.38 2.44c-.03.72-.01 1.32.03 1.75c.02.2.04.4.06.54l.03.17c.2 2.56 2.31 4.58 4.93 4.58c2.74 0 4.96-2.22 4.96-4.96s-2.22-4.96-4.96-4.96Z"/></svg>
+          <p class="text-gray-600 leading-relaxed mb-6 text-sm">
+            I'm really happy with my new home. The team guided me every step of the way. Thank you, EstateVita!
+          </p>
+        </div>
+        <div class="border-t border-blue-100 pt-4">
+          <h4 class="font-semibold text-gray-900">William Lanre</h4>
+          <p class="text-gray-400 text-xs mt-0.5">Manager, Mastercard</p>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="testi-card bg-gradient-to-b from-[#f0f4fc] to-[#e8eef8] border border-blue-200 rounded-2xl p-7 flex flex-col justify-between">
+        <div>
+          <div class="flex gap-1 text-amber-400 mb-4">
+            <i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="text-blue-400 mb-4" width="40" height="40" viewBox="0 0 24 24"><path fill="currentColor" d="M18.07 10.07c-.42 0-.83.07-1.22.17c.09-.3.17-.61.32-.88c.11-.31.29-.58.47-.84c.15-.29.41-.49.6-.74c.2-.24.47-.4.69-.6c.21-.21.49-.32.71-.46c.23-.13.43-.28.65-.35c.21-.09.39-.16.54-.22c.3-.12.47-.2.47-.2l-.48-1.94s-.22.05-.6.14c-.19.05-.42.1-.69.17c-.27.05-.56.19-.88.31c-.32.14-.69.24-1.03.47c-.34.22-.74.4-1.09.69c-.34.3-.75.56-1.05.94c-.33.36-.66.73-.91 1.16c-.29.41-.49.86-.7 1.3c-.19.44-.34.9-.47 1.34c-.24.88-.34 1.72-.38 2.44c-.03.72-.01 1.32.03 1.75c.02.2.04.4.06.54l.03.17c.2 2.56 2.31 4.58 4.93 4.58c2.74 0 4.96-2.22 4.96-4.96s-2.22-4.96-4.96-4.96Zm-11.98 0c-.42 0-.83.07-1.22.17c.09-.3.17-.61.32-.88c.11-.31.29-.58.47-.84c.15-.29.41-.49.6-.74c.2-.24.47-.4.69-.6c.21-.21.49-.32.71-.46c.23-.13.43-.28.65-.35c.21-.09.39-.16.54-.22c.3-.12.47-.2.47-.2l-.48-1.94s-.22.05-.6.14c-.19.05-.42.1-.69.17c-.27.05-.56.19-.88.31c-.32.14-.69.24-1.03.47c-.34.22-.74.4-1.09.69c-.34.3-.75.56-1.05.94c-.33.36-.66.73-.91 1.16c-.29.41-.49.86-.7 1.3c-.19.44-.34.9-.47 1.34c-.24.88-.34 1.72-.38 2.44c-.03.72-.01 1.32.03 1.75c.02.2.04.4.06.54l.03.17c.2 2.56 2.31 4.58 4.93 4.58c2.74 0 4.96-2.22 4.96-4.96s-2.22-4.96-4.96-4.96Z"/></svg>
+          <p class="text-gray-600 leading-relaxed mb-6 text-sm">
+            Impressed by the quality of properties and level of transparency. EstateVita truly delivers on its promise.
+          </p>
+        </div>
+        <div class="border-t border-blue-100 pt-4">
+          <h4 class="font-semibold text-gray-900">Akin Hakimi</h4>
+          <p class="text-gray-400 text-xs mt-0.5">Professional Footballer</p>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="testi-card bg-gradient-to-b from-[#f0f4fc] to-[#e8eef8] border border-blue-200 rounded-2xl p-7 flex flex-col justify-between">
+        <div>
+          <div class="flex gap-1 text-amber-400 mb-4">
+            <i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i><i class="fas fa-star-half-stroke text-sm"></i>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="text-blue-400 mb-4" width="40" height="40" viewBox="0 0 24 24"><path fill="currentColor" d="M18.07 10.07c-.42 0-.83.07-1.22.17c.09-.3.17-.61.32-.88c.11-.31.29-.58.47-.84c.15-.29.41-.49.6-.74c.2-.24.47-.4.69-.6c.21-.21.49-.32.71-.46c.23-.13.43-.28.65-.35c.21-.09.39-.16.54-.22c.3-.12.47-.2.47-.2l-.48-1.94s-.22.05-.6.14c-.19.05-.42.1-.69.17c-.27.05-.56.19-.88.31c-.32.14-.69.24-1.03.47c-.34.22-.74.4-1.09.69c-.34.3-.75.56-1.05.94c-.33.36-.66.73-.91 1.16c-.29.41-.49.86-.7 1.3c-.19.44-.34.9-.47 1.34c-.24.88-.34 1.72-.38 2.44c-.03.72-.01 1.32.03 1.75c.02.2.04.4.06.54l.03.17c.2 2.56 2.31 4.58 4.93 4.58c2.74 0 4.96-2.22 4.96-4.96s-2.22-4.96-4.96-4.96Zm-11.98 0c-.42 0-.83.07-1.22.17c.09-.3.17-.61.32-.88c.11-.31.29-.58.47-.84c.15-.29.41-.49.6-.74c.2-.24.47-.4.69-.6c.21-.21.49-.32.71-.46c.23-.13.43-.28.65-.35c.21-.09.39-.16.54-.22c.3-.12.47-.2.47-.2l-.48-1.94s-.22.05-.6.14c-.19.05-.42.1-.69.17c-.27.05-.56.19-.88.31c-.32.14-.69.24-1.03.47c-.34.22-.74.4-1.09.69c-.34.3-.75.56-1.05.94c-.33.36-.66.73-.91 1.16c-.29.41-.49.86-.7 1.3c-.19.44-.34.9-.47 1.34c-.24.88-.34 1.72-.38 2.44c-.03.72-.01 1.32.03 1.75c.02.2.04.4.06.54l.03.17c.2 2.56 2.31 4.58 4.93 4.58c2.74 0 4.96-2.22 4.96-4.96s-2.22-4.96-4.96-4.96Z"/></svg>
+          <p class="text-gray-600 leading-relaxed mb-6 text-sm">
+            EstateVita helped us navigate the complex world of real estate financing with ease and confidence.
+          </p>
+        </div>
+        <div class="border-t border-blue-100 pt-4">
+          <h4 class="font-semibold text-gray-900">Tom Holland</h4>
+          <p class="text-gray-400 text-xs mt-0.5">Movie Star</p>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="testi-card bg-gradient-to-b from-[#f0f4fc] to-[#e8eef8] border border-blue-200 rounded-2xl p-7 flex flex-col justify-between">
+        <div>
+          <div class="flex gap-1 text-amber-400 mb-4">
+            <i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="text-blue-400 mb-4" width="40" height="40" viewBox="0 0 24 24"><path fill="currentColor" d="M18.07 10.07c-.42 0-.83.07-1.22.17c.09-.3.17-.61.32-.88c.11-.31.29-.58.47-.84c.15-.29.41-.49.6-.74c.2-.24.47-.4.69-.6c.21-.21.49-.32.71-.46c.23-.13.43-.28.65-.35c.21-.09.39-.16.54-.22c.3-.12.47-.2.47-.2l-.48-1.94s-.22.05-.6.14c-.19.05-.42.1-.69.17c-.27.05-.56.19-.88.31c-.32.14-.69.24-1.03.47c-.34.22-.74.4-1.09.69c-.34.3-.75.56-1.05.94c-.33.36-.66.73-.91 1.16c-.29.41-.49.86-.7 1.3c-.19.44-.34.9-.47 1.34c-.24.88-.34 1.72-.38 2.44c-.03.72-.01 1.32.03 1.75c.02.2.04.4.06.54l.03.17c.2 2.56 2.31 4.58 4.93 4.58c2.74 0 4.96-2.22 4.96-4.96s-2.22-4.96-4.96-4.96Zm-11.98 0c-.42 0-.83.07-1.22.17c.09-.3.17-.61.32-.88c.11-.31.29-.58.47-.84c.15-.29.41-.49.6-.74c.2-.24.47-.4.69-.6c.21-.21.49-.32.71-.46c.23-.13.43-.28.65-.35c.21-.09.39-.16.54-.22c.3-.12.47-.2.47-.2l-.48-1.94s-.22.05-.6.14c-.19.05-.42.1-.69.17c-.27.05-.56.19-.88.31c-.32.14-.69.24-1.03.47c-.34.22-.74.4-1.09.69c-.34.3-.75.56-1.05.94c-.33.36-.66.73-.91 1.16c-.29.41-.49.86-.7 1.3c-.19.44-.34.9-.47 1.34c-.24.88-.34 1.72-.38 2.44c-.03.72-.01 1.32.03 1.75c.02.2.04.4.06.54l.03.17c.2 2.56 2.31 4.58 4.93 4.58c2.74 0 4.96-2.22 4.96-4.96s-2.22-4.96-4.96-4.96Z"/></svg>
+          <p class="text-gray-600 leading-relaxed mb-6 text-sm">
+            Selling my property with EstateVita was fast and efficient. They connected me with serious buyers quickly.
+          </p>
+        </div>
+        <div class="border-t border-blue-100 pt-4">
+          <h4 class="font-semibold text-gray-900">Bolu Shittu</h4>
+          <p class="text-gray-400 text-xs mt-0.5">Governor</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- CTA BANNER                                          -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <section class="relative py-28 px-6 md:px-16 overflow-hidden">
+
+    <div class="absolute inset-0">
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
+           class="w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-gradient-to-r from-[#0f2d4f]/90 via-[#1e3a5f]/80 to-[#0f2d4f]/90"></div>
+    </div>
+
+    <div class="relative z-10 text-center max-w-3xl mx-auto">
+      <p class="text-blue-300 text-sm font-medium uppercase tracking-widest mb-4">Ready to Begin?</p>
+      <h2 class="text-white text-4xl md:text-5xl font-serif font-bold mb-6 leading-tight">
+        Find Your Perfect Home <br>
+        <span class="text-blue-400 italic">With EstateVita</span>
+      </h2>
+      <p class="text-white/70 text-lg mb-10 leading-relaxed">
+        Discover how EstateVita has delivered exceptional experiences, turning property dreams into reality for our valued clients.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <button class="px-10 py-4 rounded-full bg-blue-600 text-white font-semibold hover:bg-blue-500 transition-all duration-300 shadow-xl shadow-blue-900/40">
+          Browse Properties
+        </button>
+        <button class="px-10 py-4 rounded-full border-2 border-white/40 text-white font-semibold hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">
+          Learn More
+        </button>
+      </div>
     </div>
 
   </section>
 
-  <section class="relative bg-gradient-to-b from-gray-100 to-black pt-20 pb-16 overflow-hidden">
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- FOOTER                                              -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <footer class="bg-[#07141c] text-white px-10 md:px-20 py-16">
 
-<div class="flex justify-center items-end -space-x-3 relative z-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
 
-  <!-- LEFT EXTREME -->
-  <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
-    class="w-[180px] h-[270px] object-cover rotate-[-8deg] 
-    -translate-y-6 -translate-x-16
-    border-8 border-white shadow-xl">
-
-  <!-- Image 1 -->
-  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoFT9Zd253lRPIwsQmQbIBfC3G4WIVWQU9Vw&s"
-    class="w-[220px] h-[270px] object-cover rotate-[18deg] 
-    -translate-y-6 -translate-x-8
-    border-8 border-white shadow-xl">
-
-  <!-- Image 2 -->
-  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs8Befu6WYuwMjiCEr1_rXrQ5RU67TXtC4UA&s"
-    class="w-[220px] h-[270px] object-cover rotate-[-3deg] 
-    -translate-y-3 -translate-x-4
-    border-8 border-white shadow-xl">
-
-  <!-- CENTER -->
-  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6XB9yeL4PjXMuOR4ifjVwhOUYvyPshAN3lw&s"
-    class="w-[280px] h-[360px] object-cover rotate-[11deg] 
-    translate-y-6
-    border-8 border-white shadow-2xl z-30 scale-110">
-
-  <!-- Image 4 -->
-  <img src="https://www.11prop.com/_next/image?url=https%3A%2F%2Fimages.prismic.io%2F11prop-blog%2FZxYdpIF3NbkBXwoe_1-StrategiesforBreakingintotheHigh-EndLuxuryRealEstateMarket-Shutterstock-copy.webp%3Fauto%3Dformat%2Ccompress&w=3840&q=75"
-    class="w-[220px] h-[270px] object-cover rotate-[-5deg] 
-    -translate-y-6 translate-x-4
-    border-8 border-white shadow-xl">
-
-  <!-- Image 5 -->
-  <img src="https://aihkcdnstoragep01.blob.core.windows.net/pgl-release/Images/ArticleImages/24/24867_400.png"
-    class="w-[220px] h-[270px] object-cover rotate-[18deg] 
-    -translate-y-4 translate-x-8
-    border-8 border-white shadow-xl">
-
-  <!-- RIGHT EXTREME -->
-  <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c"
-    class="w-[180px] h-[260px] object-cover rotate-[-10deg] 
-    -translate-y-2 translate-x-16
-    border-8 border-white shadow-xl">
-
-</div>
-
-  <!-- DARK CONTENT AREA -->
-  <div class="mt-16 px-10 md:px-20 text-white grid md:grid-cols-2 gap-10 items-center">
-
-    <!-- LEFT TITLE -->
-    <div>
-      <h2 class="text-4xl md:text-5xl font-serif leading-tight">
-        Lasting <br> Achievement
-      </h2>
-    </div>
-
-    <!-- RIGHT TEXT -->
-    <div class="text-gray-300 leading-relaxed">
-      <p>
-        Discover your perfect home and begin your story:
-        <span class="text-blue-400 font-medium">Estatevista</span>
-        – where every dream finds its place, every journey begins,
-        and every achievement shines bright. The promise of home
-        becomes reality, each moment becomes a memory, and every achievement.
-      </p>
-    </div>
-
-  </div>
-
-</section>
-
-<section class="px-10 md:px-20 py-16 bg-[#ffffff]">
-
-  <div class="border border-gray-600 -mt-4 mb-14"></div>
-
-  <!-- HEADER -->
-  <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-    
-    <h2 class="text-4xl md:text-5xl font-serif">
-      Featured Listing
-    </h2>
-
-    <p class="max-w-xl text-gray-600">
-      Dive into the exquisite collection of featured listing at 
-      <span class="text-blue-600 font-medium">Estatevista</span> – 
-      where every corner whispers comfort, every detail is crafted with perfection
-    </p>
-
-  </div>
-
-  <!-- SCROLL CONTAINER -->
-  <div id="cardContainer" class="mt-12 overflow-x-auto scroll-smooth scrollbar-hide">
-
-    <div class="flex gap-8 w-max snap-x snap-mandatory">
-
-      <!-- CARD 1 -->
-      <div class="min-w-[410px] snap-start rounded-2xl p-6 border border-gray-400">
-        <h3 class="text-3xl font-serif font-medium mb-2 text-center">EstateVita Residences</h3>
-        <div class="flex justify-between text-gray-600 mb-4 mt-6">
-          <span>Luxury Villa</span>
-          <span>Lekki Phase 1, Lagos</span>
-        </div>
-        <div class="flex justify-center mb-6">
-          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
-            class="w-64 h-64 object-cover rounded-full">
-        </div>
-        <div class="flex justify-between items-center">
-        <div class="text-gray-700 space-y-1">
-          <p>4 Bed Rooms</p>
-          <p>5 Bath Rooms</p>
-          <p>2 Living Rooms</p>
-          <p>Swimming pool</p>
-        </div>
-        <div class="flex justify-end mt-4 text-lg font-semibold">
-          💰 ₦ 300M
-        </div>
-        </div>
-      </div>
-
-      <!-- CARD 2 -->
-      <div class="min-w-[410px] snap-start rounded-2xl p-6 border border-gray-400">
-        <h3 class="text-3xl font-serif font-medium mb-2 text-center">EstateVita Residences</h3>
-        <div class="flex justify-between text-gray-600 mb-4 mt-6">
-          <span>Luxury Villa</span>
-          <span>Lekki Phase 1, Lagos</span>
-        </div>
-        <div class="flex justify-center mb-6">
-          <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c"
-            class="w-64 h-64 object-cover rounded-full">
-        </div>
-        <div class="flex justify-between items-center">
-        <div class="text-gray-700 space-y-1">
-          <p>4 Bed Rooms</p>
-          <p>5 Bath Rooms</p>
-          <p>2 Living Rooms</p>
-          <p>Swimming pool</p>
-        </div>
-        <div class="flex justify-end mt-4 text-lg font-semibold">
-          💰 ₦ 300M
-        </div>
-        </div>
-      </div>
-
-      <!-- CARD 3 -->
-      <div class="min-w-[410px] snap-start rounded-2xl p-6 border border-gray-400">
-        <h3 class="text-3xl font-serif font-medium mb-2 text-center">EstateVita Residences</h3>
-        <div class="flex justify-between text-gray-600 mb-4 mt-6">
-          <span>Luxury Villa</span>
-          <span>Lekki Phase 1, Lagos</span>
-        </div>
-        <div class="flex justify-center mb-6">
-          <img src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e"
-            class="w-64 h-64 object-cover rounded-full">
-        </div>
-        <div class="flex justify-between items-center">
-        <div class="text-gray-700 space-y-1">
-          <p>3 Bed Rooms</p>
-          <p>3 Bath Rooms</p>
-          <p>2 Living Rooms</p>
-        </div>
-        <div class="flex justify-end mt-4 text-lg font-semibold">
-          💰 ₦ 400M
-        </div>
-        </div>
-      </div>
-
-      <!-- CARD 4 -->
-      <div class="min-w-[410px] snap-start rounded-2xl p-6 border border-gray-400">
-        <h3 class="text-3xl font-serif font-medium mb-2 text-center">EstateVita Residences</h3>
-        <div class="flex justify-between text-gray-600 mb-4 mt-6">
-          <span>Luxury Apartment</span>
-          <span>Victoria Island, Lagos</span>
-        </div>
-        <div class="flex justify-center mb-6">
-          <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde"
-            class="w-64 h-64 object-cover rounded-full">
-        </div>
-        <div class="flex justify-between items-center">
-        <div class="text-gray-700 space-y-1">
-          <p>2 Bed Rooms</p>
-          <p>2 Bath Rooms</p>
-          <p>1 Living Room</p>
-        </div>
-        <div class="flex justify-end mt-4 text-lg font-semibold">
-          💰 ₦ 200M
-        </div>
-        </div>
-      </div>
-
-      <!-- CARD 5 -->
-      <div class="min-w-[410px] snap-start rounded-2xl p-6 border border-gray-400">
-        <h3 class="text-3xl font-serif font-medium mb-2 text-center">EstateVita Residences</h3>
-        <div class="flex justify-between text-gray-600 mb-4 mt-6">
-          <span>Penthouse</span>
-          <span>Ikoyi, Lagos</span>
-        </div>
-        <div class="flex justify-center mb-6">
-          <img src="https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4"
-            class="w-64 h-64 object-cover rounded-full">
-        </div>
-        <div class="flex justify-between items-center">
-        <div class="text-gray-700 space-y-1">
-          <p>5 Bed Rooms</p>
-          <p>6 Bath Rooms</p>
-          <p>3 Living Rooms</p>
-        </div>
-        <div class="flex justify-end mt-4 text-lg font-semibold">
-          💰 ₦ 500M
-        </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="flex justify-center items-center mt-6">
-    <button class=" text-2xl px-24 py-2 bg-[#0f4c9f] rounded-full border-2 border-white text-gray-200">
-      See More
-    </button>
-  </div>
-
-  <div class="border border-gray-600 mt-6 mb-12"></div>
-</section>
-
-<section class="bg-[#8a664c] px-10 md:px-20 py-16 text-white">
-  <!-- <div class="max-w-8xl mx-auto grid md:grid-cols-2 gap-34 items-center"> -->
-     <div class="flex justify-between items-center mx-10">
-
-    <!-- OUR VISION -->
-    <div class="flex flex-col gap-6 max-w-xl">
-      <h2 class="text-4xl font-serif font-bold">Our Vision</h2>
-      <p class="text-gray-200 text-lg">
-        “At EstateVita, our vision is to redefine modern living by creating timeless, high-quality homes that elevate everyday life. We aim to design and deliver spaces that blend comfort, elegance, and functionality, offering not just buildings, but environments where individuals and families can truly thrive.”
-      </p>
-      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" 
-           class="w-[500px]  h-[270px] rounded-[30px] mt-4 shadow-lg">
-    </div>
-
-    <!-- OUR MISSION -->
-    <div class="flex flex-col gap-6 max-w-[500px]">
-      <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde" 
-           class="w-[500px]  h-[270px] rounded-[30px] mt-4 shadow-lg">
-      <h2 class="text-4xl font-serif font-bold">Our Mission</h2>
-      <p class="text-gray-200 text-lg">
-        Our mission is to simplify the real estate journey by providing high-quality properties, trusted guidance, and seamless experiences. We are committed to helping individuals and families find spaces they can truly call home while delivering lasting value, comfort, and peace of mind in every step.
-      </p>
-    </div>
-
-  </div>
-</section>
-
-<section class="px-10 md:px-20 py-16 bg-white">
-  <!-- Heading -->
-  <div class="text-center mx-auto mb-12">
-    <h2 class="text-4xl md:text-4xl font-serif font-bold mb-4">
-      Your Complete Real Estate Experience
-    </h2>
-    <p class="text-gray-600 text-[16.5px]">
-      At EstateVita, we go beyond selling properties to deliver a smooth and rewarding journey from start to finish. With <br>a focus on quality, comfort, and value, we make finding and owning your ideal space simple, secure, and <br>satisfying.
-    </p>
-  </div>
-
-  <!-- Service Cards -->
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-8xl mx-auto">
-    
-    <!-- CARD 1 -->
-    <div class="bg-[#eff3fc] border border-[#a4bee2] h-[470px] rounded-xl p-8 flex flex-col gap-4 shadow">
-      <div class="text-blue-500 text-6xl">
-        <!-- Replace with icon -->
-        <i class="fas fa-home"></i>
-      </div>
-      <h3 class="text-[40px] font-medium text-center mt-4">Finance a Home</h3>
-      <p class="text-gray-800 text-2xl">
-        Get the support you need to own <br>your dream home with flexible <br>and reliable financing options <br>tailored to your budget.
-      </p>
-      <a href="#" class="text-blue-600 font-medium mt-6 text-2xl inline-block">
-        Learn More
-      </a>
-    </div>
-
-    <!-- CARD 2 -->
-    <div class="bg-[#eff3fc] border border-[#a4bee2] h-[470px] rounded-xl p-8 flex flex-col gap-4 shadow">
-      <div class="text-blue-500 text-6xl">
-        <!-- Replace with icon -->
-         <i class="fas fa-wallet"></i>
-      </div>
-      <h3 class="text-[40px] font-medium text-center mt-4">Sell a Home</h3>
-      <p class="text-gray-800 text-2xl">
-        List your property with confidence and reach the right buyers through a smooth, efficient, and rewarding selling process.
-      </p>
-      <a href="#" class="text-blue-600 font-medium mt-6 text-2xl inline-block">
-        Learn More
-      </a>
-    </div>
-
-    <!-- CARD 3 -->
-    <div class="bg-[#eff3fc] border border-[#a4bee2] h-[470px] rounded-xl p-8 flex flex-col gap-4 shadow">
-      <div class="text-blue-500 text-6xl">
-        <!-- Replace with icon -->
-         <i class="fas fa-building-columns"></i>
-      </div>
-      <h3 class="text-[40px] font-medium text-center mt-4">Rent a Home</h3>
-      <p class="text-gray-800 text-2xl">
-        Find comfortable and well-located rental spaces that suit your lifestyle, with a simple and stress-free experience.
-      </p>
-      <a href="#" class="text-blue-600 font-medium mt-6 text-2xl inline-block">
-        Learn More
-      </a>
-    </div>
-
-  </div>
-</section>
-
-<section class="px-10 md:px-20 py-16 bg-[#eff3fc]">
-  <!-- Section Title -->
-  <div class="flex justify-between items-center mb-16">
-    <h2 class="text-5xl font-medium">Property Neighborhoods</h2>
-    <p class="text-gray-600 max-w-xl">Experience thoughtfully designed neighborhoods where quality living meets convinience, security and true sense of community</p>
-  </div>
-
-  <!-- Top Large Card -->
-  <div class="mb-10">
-    <div class="relative rounded-xl overflow-hidden shadow-lg">
-      <img src="https://sunriseandpartners.com/wp-content/uploads/2019/05/real-1-600x450-1.jpg" alt="Property Top" class="w-full h-[460px] object-cover">
-      <div class="absolute bottom-0 left-0 bg-black bg-opacity-50 text-white p-6 w-full">
-        <h3 class="text-2xl font-semibold mb-2">Luxury Villa</h3>
-        <div class="flex items-center gap-6 text-sm">
-          <span class="flex items-center gap-2"><i class="fas fa-border-all"></i> 1,800 Sq Ft</span>
-          <span class="flex items-center gap-2"><i class="fas fa-bed"></i> 5 Bedroom</span>
-          <span class="flex items-center gap-2"><i class="fas fa-bath"></i> 4 Bathroom</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Bottom Two Cards -->
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-    <!-- Left Bigger Card -->
-    <div class="md:col-span-2 relative rounded-xl overflow-hidden shadow-lg">
-      <img src="https://torbitalimited.com/wp-content/uploads/2018/09/real-estate.jpg" alt="Property Left" class="w-full h-[460px] object-cover">
-      <div class="absolute bottom-0 left-0 bg-black bg-opacity-50 text-white p-4 w-full">
-        <h4 class="text-xl font-semibold mb-1">Modern Family Home</h4>
-        <div class="flex items-center gap-4 text-sm">
-          <span class="flex items-center gap-2"><i class="fas fa-border-all"></i> 1,500 Sq Ft</span>
-          <span class="flex items-center gap-2"><i class="fas fa-bed"></i> 4 Bedroom</span>
-          <span class="flex items-center gap-2"><i class="fas fa-bath"></i> 3 Bathroom</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Right Smaller Card -->
-    <div class="relative rounded-xl overflow-hidden shadow-lg">
-      <img src="https://fskyhomes.com/wp-content/uploads/2025/08/ff5d76ecf2e57a99f85e2ce4a3a68f0b.jpg" alt="Property Right" class="w-full h-[460px] object-cover">
-      <div class="absolute bottom-0 left-0 bg-black bg-opacity-50 text-white p-4 w-full">
-        <h4 class="text-xl font-semibold mb-1">Cozy Apartment</h4>
-        <div class="flex items-center gap-4 text-sm">
-          <span class="flex items-center gap-2"><i class="fas fa-border-all"></i> 900 Sq Ft</span>
-          <span class="flex items-center gap-2"><i class="fas fa-bed"></i> 2 Bedroom</span>
-          <span class="flex items-center gap-2"><i class="fas fa-bath"></i> 1 Bathroom</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- See More Button -->
-  <div class="flex justify-center items-center mt-6">
-    <button class=" text-2xl px-24 py-2 bg-[#0f4c9f] rounded-full border-2 border-white text-gray-200">
-      See More
-    </button>
-  </div>
-</section>
-
-<section class="bg-[#f7f7f7] py-20 px-6 md:px-16">
-  
-  <!-- Heading -->
-  <div class="text-center max-w-3xl mx-auto mb-16">
-    <h2 class="text-3xl md:text-4xl font-semibold text-black mb-4">
-      Testimonials From Happy EstateVista Clients
-    </h2>
-    <p class="text-gray-500 text-base md:text-lg">
-      Discover how EstateVita has delivered exceptional experiences, turning property dreams <br>into reality for our valued clients.
-    </p>
-  </div>
-
-  <!-- Cards -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-    
-    <!-- Card 1 -->
-    <div class="bg-[#eef2f5] border border-blue-400 rounded-xl p-6 flex flex-col justify-between">
       <div>
-        <p class="text-5xl text-blue-500 mb-4">
-          <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 24 24"><path fill="currentColor" d="M18.07 10.07c-.42 0-.83.07-1.22.17c.09-.3.17-.61.32-.88c.11-.31.29-.58.47-.84c.15-.29.41-.49.6-.74c.2-.24.47-.4.69-.6c.21-.21.49-.32.71-.46c.23-.13.43-.28.65-.35c.21-.09.39-.16.54-.22c.3-.12.47-.2.47-.2l-.48-1.94s-.22.05-.6.14c-.19.05-.42.1-.69.17c-.27.05-.56.19-.88.31c-.32.14-.69.24-1.03.47c-.34.22-.74.4-1.09.69c-.34.3-.75.56-1.05.94c-.33.36-.66.73-.91 1.16c-.29.41-.49.86-.7 1.3c-.19.44-.34.9-.47 1.34c-.24.88-.34 1.72-.38 2.44c-.03.72-.01 1.32.03 1.75c.02.2.04.4.06.54l.03.17c.2 2.56 2.31 4.58 4.93 4.58c2.74 0 4.96-2.22 4.96-4.96s-2.22-4.96-4.96-4.96Zm-11.98 0c-.42 0-.83.07-1.22.17c.09-.3.17-.61.32-.88c.11-.31.29-.58.47-.84c.15-.29.41-.49.6-.74c.2-.24.47-.4.69-.6c.21-.21.49-.32.71-.46c.23-.13.43-.28.65-.35c.21-.09.39-.16.54-.22c.3-.12.47-.2.47-.2l-.48-1.94s-.22.05-.6.14c-.19.05-.42.1-.69.17c-.27.05-.56.19-.88.31c-.32.14-.69.24-1.03.47c-.34.22-.74.4-1.09.69c-.34.3-.75.56-1.05.94c-.33.36-.66.73-.91 1.16c-.29.41-.49.86-.7 1.3c-.19.44-.34.9-.47 1.34c-.24.88-.34 1.72-.38 2.44c-.03.72-.01 1.32.03 1.75c.02.2.04.4.06.54l.03.17c.2 2.56 2.31 4.58 4.93 4.58c2.74 0 4.96-2.22 4.96-4.96s-2.22-4.96-4.96-4.96Z"/></svg>
-        </p>
-        <p class="text-gray-600 text-lg leading-relaxed mb-6">
-          I’m really happy with my new home. Thank you, EstateVita!
+        <div class="flex items-center gap-2 mb-4">
+          <i class="fa-solid fa-house text-blue-500 text-xl"></i>
+          <h2 class="text-xl font-serif font-semibold">Estatevita</h2>
+        </div>
+        <p class="text-gray-400 leading-relaxed text-sm">
+          Delivering your complete real estate experience with quality, comfort, and trust.
         </p>
       </div>
-      <div>
-        <h4 class="font-semibold text-lg text-black">Willam Lanre</h4>
-        <p class="text-gray-500 text-sm">Manager , Master card</p>
-      </div>
-    </div>
 
-    <!-- Card 2 -->
-    <div class="bg-[#eef2f5] border border-blue-400 rounded-xl p-6 flex flex-col justify-between">
       <div>
-        <p class="text-5xl text-blue-500 mb-4">
-          <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 24 24"><path fill="currentColor" d="M18.07 10.07c-.42 0-.83.07-1.22.17c.09-.3.17-.61.32-.88c.11-.31.29-.58.47-.84c.15-.29.41-.49.6-.74c.2-.24.47-.4.69-.6c.21-.21.49-.32.71-.46c.23-.13.43-.28.65-.35c.21-.09.39-.16.54-.22c.3-.12.47-.2.47-.2l-.48-1.94s-.22.05-.6.14c-.19.05-.42.1-.69.17c-.27.05-.56.19-.88.31c-.32.14-.69.24-1.03.47c-.34.22-.74.4-1.09.69c-.34.3-.75.56-1.05.94c-.33.36-.66.73-.91 1.16c-.29.41-.49.86-.7 1.3c-.19.44-.34.9-.47 1.34c-.24.88-.34 1.72-.38 2.44c-.03.72-.01 1.32.03 1.75c.02.2.04.4.06.54l.03.17c.2 2.56 2.31 4.58 4.93 4.58c2.74 0 4.96-2.22 4.96-4.96s-2.22-4.96-4.96-4.96Zm-11.98 0c-.42 0-.83.07-1.22.17c.09-.3.17-.61.32-.88c.11-.31.29-.58.47-.84c.15-.29.41-.49.6-.74c.2-.24.47-.4.69-.6c.21-.21.49-.32.71-.46c.23-.13.43-.28.65-.35c.21-.09.39-.16.54-.22c.3-.12.47-.2.47-.2l-.48-1.94s-.22.05-.6.14c-.19.05-.42.1-.69.17c-.27.05-.56.19-.88.31c-.32.14-.69.24-1.03.47c-.34.22-.74.4-1.09.69c-.34.3-.75.56-1.05.94c-.33.36-.66.73-.91 1.16c-.29.41-.49.86-.7 1.3c-.19.44-.34.9-.47 1.34c-.24.88-.34 1.72-.38 2.44c-.03.72-.01 1.32.03 1.75c.02.2.04.4.06.54l.03.17c.2 2.56 2.31 4.58 4.93 4.58c2.74 0 4.96-2.22 4.96-4.96s-2.22-4.96-4.96-4.96Z"/></svg>
+        <h3 class="text-base font-semibold mb-5 text-white/90 uppercase tracking-wider">Quick Links</h3>
+        <ul class="space-y-3 text-gray-400 text-sm">
+          <li class="hover:text-white cursor-pointer transition">Home</li>
+          <li class="hover:text-white cursor-pointer transition">About Us</li>
+          <li class="hover:text-white cursor-pointer transition">Properties</li>
+          <li class="hover:text-white cursor-pointer transition">Buy</li>
+          <li class="hover:text-white cursor-pointer transition">Sell</li>
+          <li class="hover:text-white cursor-pointer transition">Rent</li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-base font-semibold mb-5 text-white/90 uppercase tracking-wider">Services</h3>
+        <ul class="space-y-3 text-gray-400 text-sm">
+          <li class="hover:text-white cursor-pointer transition">Finance a Home</li>
+          <li class="hover:text-white cursor-pointer transition">Sell a Home</li>
+          <li class="hover:text-white cursor-pointer transition">Rent a Home</li>
+          <li class="hover:text-white cursor-pointer transition">Property Management</li>
+          <li class="hover:text-white cursor-pointer transition">FAQs</li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-base font-semibold mb-5 text-white/90 uppercase tracking-wider">Contact</h3>
+        <p class="text-gray-400 mb-3 text-sm leading-relaxed">
+          Queen Drive, Ikoyi<br />
+          Lagos, Nigeria
         </p>
-        <p class="text-gray-600 text-lg leading-relaxed mb-6">
-          I was impressed by the quality of the properties and the level of transparency. EstateVita truly delivers.
-        </p>
+        <p class="text-gray-400 mb-2 text-sm">+234 3494393214</p>
+        <p class="text-gray-400 text-sm">info@estatevita.com</p>
       </div>
+
       <div>
-        <h4 class="font-semibold text-lg text-black">Akin Hakimi</h4>
-        <p class="text-gray-500 text-sm">Footballer</p>
-      </div>
-    </div>
-
-    <!-- Card 3 -->
-    <div class="bg-[#eef2f5] border border-blue-400 rounded-xl p-6 flex flex-col justify-between">
-      <div>
-        <p class="text-5xl text-blue-500 mb-4">
-          <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 24 24"><path fill="currentColor" d="M18.07 10.07c-.42 0-.83.07-1.22.17c.09-.3.17-.61.32-.88c.11-.31.29-.58.47-.84c.15-.29.41-.49.6-.74c.2-.24.47-.4.69-.6c.21-.21.49-.32.71-.46c.23-.13.43-.28.65-.35c.21-.09.39-.16.54-.22c.3-.12.47-.2.47-.2l-.48-1.94s-.22.05-.6.14c-.19.05-.42.1-.69.17c-.27.05-.56.19-.88.31c-.32.14-.69.24-1.03.47c-.34.22-.74.4-1.09.69c-.34.3-.75.56-1.05.94c-.33.36-.66.73-.91 1.16c-.29.41-.49.86-.7 1.3c-.19.44-.34.9-.47 1.34c-.24.88-.34 1.72-.38 2.44c-.03.72-.01 1.32.03 1.75c.02.2.04.4.06.54l.03.17c.2 2.56 2.31 4.58 4.93 4.58c2.74 0 4.96-2.22 4.96-4.96s-2.22-4.96-4.96-4.96Zm-11.98 0c-.42 0-.83.07-1.22.17c.09-.3.17-.61.32-.88c.11-.31.29-.58.47-.84c.15-.29.41-.49.6-.74c.2-.24.47-.4.69-.6c.21-.21.49-.32.71-.46c.23-.13.43-.28.65-.35c.21-.09.39-.16.54-.22c.3-.12.47-.2.47-.2l-.48-1.94s-.22.05-.6.14c-.19.05-.42.1-.69.17c-.27.05-.56.19-.88.31c-.32.14-.69.24-1.03.47c-.34.22-.74.4-1.09.69c-.34.3-.75.56-1.05.94c-.33.36-.66.73-.91 1.16c-.29.41-.49.86-.7 1.3c-.19.44-.34.9-.47 1.34c-.24.88-.34 1.72-.38 2.44c-.03.72-.01 1.32.03 1.75c.02.2.04.4.06.54l.03.17c.2 2.56 2.31 4.58 4.93 4.58c2.74 0 4.96-2.22 4.96-4.96s-2.22-4.96-4.96-4.96Z"/></svg>
+        <h3 class="text-base font-semibold mb-5 text-white/90 uppercase tracking-wider">Newsletter</h3>
+        <p class="text-blue-400 mb-4 text-sm">
+          Subscribe to receive exclusive offers and updates.
         </p>
-        <p class="text-gray-600 text-lg leading-relaxed mb-6">
-          Estate helped us navigate the complex world of real estate financing with ease
-        </p>
-      </div>
-      <div>
-        <h4 class="font-semibold text-lg text-black">Tom Holland</h4>
-        <p class="text-gray-500 text-sm">Movie star</p>
-      </div>
-    </div>
-
-    <!-- Card 4 -->
-    <div class="bg-[#eef2f5] border border-blue-400 rounded-xl p-6 flex flex-col justify-between">
-      <div>
-        <p class="text-5xl text-blue-500 mb-4">
-          <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 24 24"><path fill="currentColor" d="M18.07 10.07c-.42 0-.83.07-1.22.17c.09-.3.17-.61.32-.88c.11-.31.29-.58.47-.84c.15-.29.41-.49.6-.74c.2-.24.47-.4.69-.6c.21-.21.49-.32.71-.46c.23-.13.43-.28.65-.35c.21-.09.39-.16.54-.22c.3-.12.47-.2.47-.2l-.48-1.94s-.22.05-.6.14c-.19.05-.42.1-.69.17c-.27.05-.56.19-.88.31c-.32.14-.69.24-1.03.47c-.34.22-.74.4-1.09.69c-.34.3-.75.56-1.05.94c-.33.36-.66.73-.91 1.16c-.29.41-.49.86-.7 1.3c-.19.44-.34.9-.47 1.34c-.24.88-.34 1.72-.38 2.44c-.03.72-.01 1.32.03 1.75c.02.2.04.4.06.54l.03.17c.2 2.56 2.31 4.58 4.93 4.58c2.74 0 4.96-2.22 4.96-4.96s-2.22-4.96-4.96-4.96Zm-11.98 0c-.42 0-.83.07-1.22.17c.09-.3.17-.61.32-.88c.11-.31.29-.58.47-.84c.15-.29.41-.49.6-.74c.2-.24.47-.4.69-.6c.21-.21.49-.32.71-.46c.23-.13.43-.28.65-.35c.21-.09.39-.16.54-.22c.3-.12.47-.2.47-.2l-.48-1.94s-.22.05-.6.14c-.19.05-.42.1-.69.17c-.27.05-.56.19-.88.31c-.32.14-.69.24-1.03.47c-.34.22-.74.4-1.09.69c-.34.3-.75.56-1.05.94c-.33.36-.66.73-.91 1.16c-.29.41-.49.86-.7 1.3c-.19.44-.34.9-.47 1.34c-.24.88-.34 1.72-.38 2.44c-.03.72-.01 1.32.03 1.75c.02.2.04.4.06.54l.03.17c.2 2.56 2.31 4.58 4.93 4.58c2.74 0 4.96-2.22 4.96-4.96s-2.22-4.96-4.96-4.96Z"/></svg>
-        </p>
-        <p class="text-gray-600 text-lg leading-relaxed mb-6">
-          Selling my property with EstateVita was fast and efficient. They connected me with serious buyers
-        </p>
-      </div>
-      <div>
-        <h4 class="font-semibold text-lg text-black">Bolu shittu</h4>
-        <p class="text-gray-500 text-sm">Governor</p>
-      </div>
-    </div>
-
-  </div>
-
-</section>
-
-<section class="relative py-16 px-6 md:px-16 mb-4">
-
-  <!-- Background Image -->
-  <div class="absolute inset-0">
-    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
-         class="w-full h-full object-cover" />
-    <!-- Overlay -->
-    <div class="absolute inset-0 bg-[#1e3a5f]/70"></div>
-  </div>
-
-  <!-- Content -->
-  <div class="relative z-10 text-center max-w-3xl mx-auto">
-    
-    <h2 class="text-white text-3xl md:text-4xl font-semibold mb-6">
-      Testimonials From Happy EstateVista <br>Clients
-    </h2>
-
-    <p class="text-white/80 text-base md:text-lg mb-10">
-      Discover how EstateVita has delivered exceptional experiences, turning property dreams <br>into reality for our valued clients.
-    </p>
-
-    <!-- Button -->
-    <button class="px-8 py-3 rounded-full border border-white text-white text-lg hover:bg-white hover:text-[#1e3a5f] transition">
-      Learn More
-    </button>
-
-  </div>
-
-</section>
-
-<footer class="bg-[#07141c] text-white px-6 md:px-16 py-16">
-
-  <!-- Top Grid -->
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
-
-    <!-- Logo + Description -->
-    <div>
-      <div class="flex items-center gap-2 mb-4">
-        <i class="fa-solid fa-house text-blue-500 text-2xl"></i>
-        <h2 class="text-2xl font-semibold">Estatevita</h2>
-      </div>
-      <p class="text-gray-400 leading-relaxed">
-        Delivering your complete real estate experience with quality, comfort, and trust.
-      </p>
-    </div>
-
-    <!-- Quick Links -->
-    <div>
-      <h3 class="text-xl font-semibold mb-4">Quick Link</h3>
-      <ul class="space-y-2 text-gray-400">
-        <li class="hover:text-white cursor-pointer">Home</li>
-        <li class="hover:text-white cursor-pointer">About Us</li>
-        <li class="hover:text-white cursor-pointer">Properties</li>
-        <li class="hover:text-white cursor-pointer">Buy</li>
-        <li class="hover:text-white cursor-pointer">Sell</li>
-        <li class="hover:text-white cursor-pointer">Rent</li>
-      </ul>
-    </div>
-
-    <!-- Services -->
-    <div>
-      <h3 class="text-xl font-semibold mb-4">SERVICE</h3>
-      <ul class="space-y-2 text-gray-400">
-        <li>Finance a Home</li>
-        <li>Sell a Home</li>
-        <li>Rent a Home</li>
-        <li>Property Management</li>
-        <li>FAQs</li>
-      </ul>
-    </div>
-
-    <!-- Contact -->
-    <div>
-      <h3 class="text-xl font-semibold mb-4">CONTACT</h3>
-      <p class="text-gray-400 mb-3">
-        Queen drive, ikoyi<br />
-        Lagos, Nigeria
-      </p>
-      <p class="text-gray-400 mb-2">+234 3494393214</p>
-      <p class="text-gray-400">info@estatevita.com</p>
-    </div>
-
-    <!-- Newsletter -->
-    <div>
-      <h3 class="text-xl font-semibold mb-4">NEWSLETTER</h3>
-      <p class="text-blue-400 mb-4">
-        Subscribe to receive exclusive offers and updates.
-      </p>
-
-      <div class="flex">
-        <input 
-          type="email" 
-          placeholder="Email Address"
-          class="w-full px-4 py-2 bg-transparent border border-blue-400 outline-none text-white placeholder-gray-400"
-        />
-        <button class="bg-gray-200 text-black px-5">
-          JOIN
-        </button>
+        <div class="flex rounded-lg overflow-hidden border border-blue-400/40">
+          <input
+            type="email"
+            placeholder="Email Address"
+            class="w-full px-4 py-2.5 bg-transparent outline-none text-white placeholder-gray-500 text-sm"
+          />
+          <button class="bg-blue-600 text-white px-4 text-sm font-medium hover:bg-blue-700 transition">
+            JOIN
+          </button>
+        </div>
+        <div class="flex gap-5 mt-6 text-gray-400 text-lg">
+          <i class="fa-brands fa-instagram cursor-pointer hover:text-white transition"></i>
+          <i class="fa-brands fa-facebook-f cursor-pointer hover:text-white transition"></i>
+          <i class="fa-brands fa-youtube cursor-pointer hover:text-white transition"></i>
+          <i class="fa-brands fa-x-twitter cursor-pointer hover:text-white transition"></i>
+        </div>
       </div>
 
-      <!-- Social Icons -->
-      <div class="flex gap-4 mt-6 text-2xl">
-        <i class="fa-brands fa-instagram cursor-pointer"></i>
-        <i class="fa-brands fa-facebook-f cursor-pointer"></i>
-        <i class="fa-brands fa-youtube cursor-pointer"></i>
-        <i class="fa-brands fa-x-twitter cursor-pointer"></i>
+    </div>
+
+    <div class="border-t border-blue-900 mt-12 pt-6 flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm">
+      <p>© 2026 EstateVita. All rights reserved.</p>
+      <div class="flex gap-6 mt-4 md:mt-0">
+        <span class="cursor-pointer hover:text-white transition">Privacy Policy</span>
+        <span class="cursor-pointer hover:text-white transition">Terms of Service</span>
+        <span class="cursor-pointer hover:text-white transition">Cookie Policy</span>
       </div>
     </div>
 
-  </div>
+  </footer>
 
-  <!-- Divider -->
-  <div class="border-t border-blue-500 mt-12 pt-6 flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm">
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        navbar.classList.add('navbar-scrolled');
+      } else {
+        navbar.classList.remove('navbar-scrolled');
+      }
+    });
+  </script>
 
-    <p>© 2026 EstateVita . All rights reserved.</p>
-
-    <div class="flex gap-6 mt-4 md:mt-0">
-      <span class="cursor-pointer hover:text-white">Privacy policy</span>
-      <span class="cursor-pointer hover:text-white">Terms Of Services</span>
-      <span class="cursor-pointer hover:text-white">Cookie Policy</span>
-    </div>
-
-  </div>
-
-</footer>
 </body>
 </html>
