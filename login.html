@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — Estatevita</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    body { font-family: 'DM Sans', sans-serif; }
+    h1, h2, h3 { font-family: 'Playfair Display', serif; }
+  </style>
+</head>
+<body class="bg-[#f0f4fc] min-h-screen flex">
+
+  <!-- LEFT PANEL — Image -->
+  <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden">
+    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" class="w-full h-full object-cover">
+    <div class="absolute inset-0 bg-gradient-to-br from-[#0f2d4f]/90 to-[#1e5799]/70"></div>
+    <div class="absolute inset-0 flex flex-col justify-between p-14">
+      <!-- Logo -->
+      <a href="Estatevita.html" class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-blue-300" viewBox="0 0 512 512">
+          <path fill="currentColor" d="M261.56 101.28a8 8 0 0 0-11.06 0L66.4 277.15a8 8 0 0 0-2.47 5.79L63.9 448a32 32 0 0 0 32 32H192a16 16 0 0 0 16-16V328a8 8 0 0 1 8-8h80a8 8 0 0 1 8 8v136a16 16 0 0 0 16 16h96.06a32 32 0 0 0 32-32V282.94a8 8 0 0 0-2.47-5.79Z"/>
+          <path fill="currentColor" d="m490.91 244.15l-74.8-71.56V64a16 16 0 0 0-16-16h-48a16 16 0 0 0-16 16v32l-57.92-55.38C272.77 35.14 264.71 32 256 32c-8.68 0-16.72 3.14-22.14 8.63l-212.7 203.5c-6.22 6-7 15.87-1.34 22.37A16 16 0 0 0 43 267.56L250.5 69.28a8 8 0 0 1 11.06 0l207.52 198.28a16 16 0 0 0 22.59-.44c6.14-6.36 5.63-16.86-.76-22.97"/>
+        </svg>
+        <span class="text-2xl font-semibold text-white" style="font-family:'Playfair Display',serif;">Estatevita</span>
+      </a>
+
+      <!-- Quote -->
+      <div>
+        <blockquote class="text-white/90 text-2xl font-serif leading-relaxed mb-6 italic">
+          "Where every dream finds its place, every journey begins, and every achievement shines bright."
+        </blockquote>
+        <div class="flex gap-1 text-amber-400 mb-3">
+          <i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i>
+        </div>
+        <p class="text-white/60 text-sm">Trusted by 850+ happy clients across Nigeria</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL — Form -->
+  <div class="flex-1 flex items-center justify-center px-8 py-16">
+    <div class="w-full max-w-md">
+      <!-- Mobile Logo -->
+      <a href="Estatevita.html" class="flex items-center gap-2 mb-10 lg:hidden">
+        <i class="fas fa-house text-blue-600 text-2xl"></i>
+        <span class="text-2xl font-semibold text-gray-800" style="font-family:'Playfair Display',serif;">Estatevita</span>
+      </a>
+
+      <p class="text-blue-600 text-sm font-medium uppercase tracking-widest mb-2">Welcome Back</p>
+      <h1 class="text-4xl font-bold text-gray-900 mb-2">Sign In</h1>
+      <p class="text-gray-500 mb-10">Don't have an account? <a href="signup.html" class="text-blue-600 font-medium hover:underline">Create one</a></p>
+
+      <form class="space-y-5">
+        <div>
+          <label class="text-sm font-medium text-gray-700 mb-1.5 block">Email Address</label>
+          <div class="relative">
+            <i class="fas fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            <input type="email" placeholder="john@example.com" class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-gray-200 bg-white text-gray-800 focus:ring-2 focus:ring-blue-400 outline-none">
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between mb-1.5">
+            <label class="text-sm font-medium text-gray-700">Password</label>
+            <a href="#" class="text-sm text-blue-600 hover:underline">Forgot password?</a>
+          </div>
+          <div class="relative">
+            <i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            <input type="password" id="password" placeholder="Enter your password" class="w-full pl-11 pr-12 py-3.5 rounded-xl border border-gray-200 bg-white text-gray-800 focus:ring-2 focus:ring-blue-400 outline-none">
+            <button type="button" onclick="togglePassword()" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+              <i class="fas fa-eye" id="eyeIcon"></i>
+            </button>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <input type="checkbox" id="remember" class="w-4 h-4 accent-blue-600 cursor-pointer">
+          <label for="remember" class="text-sm text-gray-600 cursor-pointer">Remember me for 30 days</label>
+        </div>
+        <button type="submit" class="w-full bg-blue-600 text-white py-4 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg shadow-blue-600/20">
+          Sign In
+        </button>
+      </form>
+
+      <div class="flex items-center gap-4 my-6">
+        <div class="flex-1 h-px bg-gray-200"></div>
+        <p class="text-gray-400 text-sm">or continue with</p>
+        <div class="flex-1 h-px bg-gray-200"></div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <button class="flex items-center justify-center gap-3 py-3 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 transition text-gray-700 font-medium">
+          <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5">
+          Google
+        </button>
+        <button class="flex items-center justify-center gap-3 py-3 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 transition text-gray-700 font-medium">
+          <i class="fab fa-facebook-f text-blue-600"></i>
+          Facebook
+        </button>
+      </div>
+
+      <p class="text-center text-gray-400 text-sm mt-10">By signing in you agree to our <a href="#" class="text-blue-600 hover:underline">Terms of Service</a> and <a href="#" class="text-blue-600 hover:underline">Privacy Policy</a>.</p>
+    </div>
+  </div>
+
+  <script>
+    function togglePassword() {
+      const input = document.getElementById('password');
+      const icon = document.getElementById('eyeIcon');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.replace('fa-eye', 'fa-eye-slash');
+      } else {
+        input.type = 'password';
+        icon.classList.replace('fa-eye-slash', 'fa-eye');
+      }
+    }
+  </script>
+</body>
+</html>

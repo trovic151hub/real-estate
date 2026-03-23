@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us — Estatevita</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    body { font-family: 'DM Sans', sans-serif; }
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+    .navbar-scrolled {
+      background: rgba(255,255,255,0.95) !important;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    }
+    .value-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .value-card:hover { transform: translateY(-5px); box-shadow: 0 16px 32px rgba(15,76,159,0.1); }
+    .team-card { transition: transform 0.3s ease; }
+    .team-card:hover { transform: translateY(-6px); }
+    .team-card .social-links { opacity: 0; transition: opacity 0.3s ease; }
+    .team-card:hover .social-links { opacity: 1; }
+  </style>
+</head>
+<body class="bg-white">
+
+  <!-- NAVBAR -->
+  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-10 md:px-24 py-3 transition-all duration-300"
+    style="background: rgba(255,255,255,0.15); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border-bottom: 1px solid rgba(255,255,255,0.25);">
+    <a href="Estatevita.html" class="flex items-center gap-2">
+      <span class="text-blue-500">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 512 512">
+          <path fill="currentColor" d="M261.56 101.28a8 8 0 0 0-11.06 0L66.4 277.15a8 8 0 0 0-2.47 5.79L63.9 448a32 32 0 0 0 32 32H192a16 16 0 0 0 16-16V328a8 8 0 0 1 8-8h80a8 8 0 0 1 8 8v136a16 16 0 0 0 16 16h96.06a32 32 0 0 0 32-32V282.94a8 8 0 0 0-2.47-5.79Z"/>
+          <path fill="currentColor" d="m490.91 244.15l-74.8-71.56V64a16 16 0 0 0-16-16h-48a16 16 0 0 0-16 16v32l-57.92-55.38C272.77 35.14 264.71 32 256 32c-8.68 0-16.72 3.14-22.14 8.63l-212.7 203.5c-6.22 6-7 15.87-1.34 22.37A16 16 0 0 0 43 267.56L250.5 69.28a8 8 0 0 1 11.06 0l207.52 198.28a16 16 0 0 0 22.59-.44c6.14-6.36 5.63-16.86-.76-22.97"/>
+        </svg>
+      </span>
+      <span class="text-2xl font-semibold text-gray-800" style="font-family:'Playfair Display',serif;">Estatevita</span>
+    </a>
+    <nav class="hidden md:flex gap-12 text-gray-700 font-medium">
+      <a href="Estatevita.html" class="hover:text-blue-600 transition">Home</a>
+      <a href="properties.html" class="hover:text-blue-600 transition">Properties</a>
+      <a href="about.html" class="text-blue-600 font-semibold">About</a>
+      <a href="contact.html" class="hover:text-blue-600 transition">Contact Us</a>
+    </nav>
+    <div class="flex items-center gap-6">
+      <a href="login.html" class="text-gray-700 font-medium hover:text-blue-600 transition">Login</a>
+      <div class="border-l-2 h-7 border-gray-400"></div>
+      <a href="signup.html" class="border-2 border-blue-600 text-blue-700 px-6 py-2 rounded-full font-medium hover:bg-blue-600 hover:text-white transition-all duration-300">Sign Up</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="relative min-h-[70vh] flex items-center px-10 md:px-24 overflow-hidden">
+    <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde" class="absolute inset-0 w-full h-full object-cover">
+    <div class="absolute inset-0 bg-gradient-to-r from-[#07141c]/90 to-[#07141c]/50"></div>
+    <div class="relative z-10 max-w-2xl pt-24">
+      <p class="text-blue-300 text-sm font-medium uppercase tracking-widest mb-4">Our Story</p>
+      <h1 class="text-5xl md:text-6xl font-bold text-white leading-tight mb-6">
+        Building More Than <br><span class="italic text-blue-300">Properties</span>
+      </h1>
+      <p class="text-white/75 text-lg leading-relaxed">
+        Founded in Lagos with a passion for transforming the real estate experience, EstateVita has grown to become one of Nigeria's most trusted property platforms — connecting families with spaces they truly call home.
+      </p>
+    </div>
+  </section>
+
+  <!-- OUR STORY -->
+  <section class="px-10 md:px-24 py-24 bg-white">
+    <div class="grid md:grid-cols-2 gap-20 items-center">
+      <div>
+        <p class="text-blue-600 text-sm font-medium uppercase tracking-widest mb-3">Who We Are</p>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">A Decade of <span class="italic">Trusted</span> Real Estate</h2>
+        <p class="text-gray-500 leading-relaxed mb-5">
+          EstateVita was born from a simple belief — that finding a home should be an exciting, transparent, and rewarding experience, not a stressful one. Since 2014, we have helped over 850 families and individuals across Nigeria navigate the real estate market with clarity and confidence.
+        </p>
+        <p class="text-gray-500 leading-relaxed mb-8">
+          From luxury villas in Ikoyi to modern apartments on Victoria Island, we curate only the finest properties and pair them with expert guidance — ensuring every client feels supported from first search to final handover.
+        </p>
+        <div class="grid grid-cols-2 gap-6">
+          <div class="bg-[#f0f4fc] rounded-2xl p-5">
+            <p class="text-3xl font-bold text-blue-700">12+</p>
+            <p class="text-gray-500 text-sm mt-1">Years in Business</p>
+          </div>
+          <div class="bg-[#f0f4fc] rounded-2xl p-5">
+            <p class="text-3xl font-bold text-blue-700">850+</p>
+            <p class="text-gray-500 text-sm mt-1">Happy Families</p>
+          </div>
+          <div class="bg-[#f0f4fc] rounded-2xl p-5">
+            <p class="text-3xl font-bold text-blue-700">₦50B+</p>
+            <p class="text-gray-500 text-sm mt-1">Properties Sold</p>
+          </div>
+          <div class="bg-[#f0f4fc] rounded-2xl p-5">
+            <p class="text-3xl font-bold text-blue-700">25+</p>
+            <p class="text-gray-500 text-sm mt-1">Cities Covered</p>
+          </div>
+        </div>
+      </div>
+      <div class="relative">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" class="w-full h-[500px] object-cover rounded-3xl shadow-2xl">
+        <div class="absolute -bottom-8 -left-8 bg-white rounded-2xl p-5 shadow-xl border border-gray-100">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+              <i class="fas fa-award text-blue-600"></i>
+            </div>
+            <div>
+              <p class="font-semibold text-gray-900 text-sm">Best Agency Award</p>
+              <p class="text-gray-400 text-xs">Nigeria Real Estate Awards 2024</p>
+            </div>
+          </div>
+          <div class="flex gap-1 text-amber-400 text-sm">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUR VALUES -->
+  <section class="bg-[#f0f4fc] px-10 md:px-24 py-20">
+    <div class="text-center mb-14">
+      <p class="text-blue-600 text-sm font-medium uppercase tracking-widest mb-3">What We Stand For</p>
+      <h2 class="text-4xl font-bold">Our Core Values</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="value-card bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+        <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mb-5">
+          <i class="fas fa-handshake text-blue-600 text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold mb-3">Trust & Transparency</h3>
+        <p class="text-gray-500 leading-relaxed">We believe every client deserves honest, clear communication throughout their property journey — no hidden costs, no surprises.</p>
+      </div>
+      <div class="value-card bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+        <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mb-5">
+          <i class="fas fa-gem text-blue-600 text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold mb-3">Quality First</h3>
+        <p class="text-gray-500 leading-relaxed">Every property we list meets our rigorous quality standards. We partner only with trusted developers and verified sellers.</p>
+      </div>
+      <div class="value-card bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+        <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mb-5">
+          <i class="fas fa-heart text-blue-600 text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold mb-3">Client-Centred</h3>
+        <p class="text-gray-500 leading-relaxed">Your needs, your timeline, your budget. Our team goes above and beyond to deliver a truly personalised experience.</p>
+      </div>
+      <div class="value-card bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+        <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mb-5">
+          <i class="fas fa-leaf text-blue-600 text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold mb-3">Sustainability</h3>
+        <p class="text-gray-500 leading-relaxed">We promote eco-conscious building practices and prioritise developments that respect the environment and community.</p>
+      </div>
+      <div class="value-card bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+        <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mb-5">
+          <i class="fas fa-bolt text-blue-600 text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold mb-3">Innovation</h3>
+        <p class="text-gray-500 leading-relaxed">From virtual tours to smart search tools, we embrace technology to make property discovery faster and smarter.</p>
+      </div>
+      <div class="value-card bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+        <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mb-5">
+          <i class="fas fa-users text-blue-600 text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold mb-3">Community</h3>
+        <p class="text-gray-500 leading-relaxed">We don't just sell homes — we build communities. Our neighbourhoods are designed to foster connection and belonging.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="px-10 md:px-24 py-20 bg-white">
+    <div class="text-center mb-14">
+      <p class="text-blue-600 text-sm font-medium uppercase tracking-widest mb-3">The People Behind It</p>
+      <h2 class="text-4xl font-bold">Meet Our Team</h2>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="team-card text-center cursor-pointer">
+        <div class="relative overflow-hidden rounded-2xl mb-5">
+          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop" class="w-full h-[260px] object-cover">
+          <div class="social-links absolute inset-0 bg-blue-700/80 flex items-center justify-center gap-4 text-white text-xl">
+            <i class="fab fa-linkedin cursor-pointer hover:text-blue-200 transition"></i>
+            <i class="fab fa-x-twitter cursor-pointer hover:text-blue-200 transition"></i>
+          </div>
+        </div>
+        <h4 class="text-lg font-semibold text-gray-900">Emeka Okafor</h4>
+        <p class="text-blue-600 text-sm font-medium">CEO & Founder</p>
+        <p class="text-gray-400 text-xs mt-1">12 years in real estate</p>
+      </div>
+      <div class="team-card text-center cursor-pointer">
+        <div class="relative overflow-hidden rounded-2xl mb-5">
+          <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=400&fit=crop" class="w-full h-[260px] object-cover">
+          <div class="social-links absolute inset-0 bg-blue-700/80 flex items-center justify-center gap-4 text-white text-xl">
+            <i class="fab fa-linkedin cursor-pointer hover:text-blue-200 transition"></i>
+            <i class="fab fa-x-twitter cursor-pointer hover:text-blue-200 transition"></i>
+          </div>
+        </div>
+        <h4 class="text-lg font-semibold text-gray-900">Adaeze Nwachukwu</h4>
+        <p class="text-blue-600 text-sm font-medium">Head of Sales</p>
+        <p class="text-gray-400 text-xs mt-1">8 years closing deals</p>
+      </div>
+      <div class="team-card text-center cursor-pointer">
+        <div class="relative overflow-hidden rounded-2xl mb-5">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop" class="w-full h-[260px] object-cover">
+          <div class="social-links absolute inset-0 bg-blue-700/80 flex items-center justify-center gap-4 text-white text-xl">
+            <i class="fab fa-linkedin cursor-pointer hover:text-blue-200 transition"></i>
+            <i class="fab fa-x-twitter cursor-pointer hover:text-blue-200 transition"></i>
+          </div>
+        </div>
+        <h4 class="text-lg font-semibold text-gray-900">Tunde Balogun</h4>
+        <p class="text-blue-600 text-sm font-medium">Property Consultant</p>
+        <p class="text-gray-400 text-xs mt-1">6 years in consulting</p>
+      </div>
+      <div class="team-card text-center cursor-pointer">
+        <div class="relative overflow-hidden rounded-2xl mb-5">
+          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop" class="w-full h-[260px] object-cover">
+          <div class="social-links absolute inset-0 bg-blue-700/80 flex items-center justify-center gap-4 text-white text-xl">
+            <i class="fab fa-linkedin cursor-pointer hover:text-blue-200 transition"></i>
+            <i class="fab fa-x-twitter cursor-pointer hover:text-blue-200 transition"></i>
+          </div>
+        </div>
+        <h4 class="text-lg font-semibold text-gray-900">Chioma Eze</h4>
+        <p class="text-blue-600 text-sm font-medium">Client Relations</p>
+        <p class="text-gray-400 text-xs mt-1">5 years client success</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="relative py-24 px-10 md:px-24 overflow-hidden">
+    <div class="absolute inset-0">
+      <img src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e" class="w-full h-full object-cover">
+      <div class="absolute inset-0 bg-[#0f2d4f]/85"></div>
+    </div>
+    <div class="relative z-10 text-center max-w-2xl mx-auto">
+      <h2 class="text-4xl md:text-5xl font-bold text-white mb-5">Ready to Find Your Home?</h2>
+      <p class="text-white/70 text-lg mb-8">Let our expert team guide you every step of the way.</p>
+      <div class="flex gap-4 justify-center flex-wrap">
+        <a href="properties.html" class="px-10 py-4 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-500 transition shadow-xl">Browse Properties</a>
+        <a href="contact.html" class="px-10 py-4 border-2 border-white/40 text-white font-semibold rounded-full hover:bg-white/10 transition">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#07141c] text-white px-10 md:px-20 py-12">
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+      <div class="flex items-center gap-2">
+        <i class="fa-solid fa-house text-blue-500 text-xl"></i>
+        <span class="text-xl font-serif font-semibold">Estatevita</span>
+      </div>
+      <p class="text-gray-400 text-sm">© 2026 EstateVita. All rights reserved.</p>
+      <div class="flex gap-5 text-gray-400 text-lg">
+        <i class="fa-brands fa-instagram cursor-pointer hover:text-white transition"></i>
+        <i class="fa-brands fa-facebook-f cursor-pointer hover:text-white transition"></i>
+        <i class="fa-brands fa-x-twitter cursor-pointer hover:text-white transition"></i>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) navbar.classList.add('navbar-scrolled');
+      else navbar.classList.remove('navbar-scrolled');
+    });
+  </script>
+</body>
+</html>
