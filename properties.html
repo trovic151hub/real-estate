@@ -31,6 +31,24 @@
       transform: translateY(0);
     }
     .filter-btn.active { background: #1d4ed8; color: white; }
+    
+     @media (max-width: 1024px) {
+    .log-btn {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .log-btn {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .log-btn {
+      display: none !important;
+    }
+  }
   </style>
 </head>
 <body class="bg-[#f8faff]">
@@ -53,7 +71,7 @@
       <a href="about.html" class="hover:text-blue-600 transition">About</a>
       <a href="contact.html" class="hover:text-blue-600 transition">Contact Us</a>
     </nav>
-    <div class="flex items-center gap-6">
+    <div class="flex items-center gap-6 log-btn">
       <a href="login.html" class="text-gray-700 font-medium hover:text-blue-600 transition">Login</a>
       <div class="border-l-2 h-7 border-gray-400"></div>
       <a href="signup.html" class="border-2 border-blue-600 text-blue-700 px-6 py-2 rounded-full font-medium hover:bg-blue-600 hover:text-white transition-all duration-300">Sign Up</a>

@@ -20,6 +20,24 @@
     .info-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
     .info-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(15,76,159,0.1); }
     input:focus, textarea:focus, select:focus { outline: none; ring: 2px solid #3b82f6; }
+
+    @media (max-width: 1024px) {
+    .log-btn {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .log-btn {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .log-btn {
+      display: none !important;
+    }
+  }
   </style>
 </head>
 <body class="bg-white">
@@ -42,7 +60,7 @@
       <a href="about.html" class="hover:text-blue-600 transition">About</a>
       <a href="contact.html" class="text-blue-600 font-semibold">Contact Us</a>
     </nav>
-    <div class="flex items-center gap-6">
+    <div class="flex items-center gap-6 log-btn">
       <a href="login.html" class="text-gray-700 font-medium hover:text-blue-600 transition">Login</a>
       <div class="border-l-2 h-7 border-gray-400"></div>
       <a href="signup.html" class="border-2 border-blue-600 text-blue-700 px-6 py-2 rounded-full font-medium hover:bg-blue-600 hover:text-white transition-all duration-300">Sign Up</a>
