@@ -53,12 +53,29 @@
       <a href="about.html" class="hover:text-blue-600 transition">About</a>
       <a href="contact.html" class="hover:text-blue-600 transition">Contact Us</a>
     </nav>
-    <div class="flex items-center gap-6">
+    <div class="hidden md:flex items-center gap-6">
       <a href="login.html" class="text-gray-700 font-medium hover:text-blue-600 transition">Login</a>
       <div class="border-l-2 h-7 border-gray-400"></div>
       <a href="signup.html" class="border-2 border-blue-600 text-blue-700 px-6 py-2 rounded-full font-medium hover:bg-blue-600 hover:text-white transition-all duration-300">Sign Up</a>
     </div>
+    <button id="menuBtn" onclick="toggleMenu()" class="md:hidden text-gray-800 text-2xl focus:outline-none p-1">
+      <i class="fas fa-bars" id="menuIcon"></i>
+    </button>
   </header>
+
+  <!-- Mobile Menu Drawer -->
+  <div id="mobileMenu" class="fixed inset-x-0 top-[60px] z-40 hidden bg-white/95 backdrop-blur-md shadow-xl border-t border-gray-100 md:hidden">
+    <nav class="flex flex-col px-6 py-6 gap-1">
+      <a href="Estatevita.html" class="text-gray-700 font-medium hover:text-blue-600 py-3 border-b border-gray-100 transition">Home</a>
+      <a href="properties.html" class="text-blue-600 font-semibold py-3 border-b border-gray-100">Properties</a>
+      <a href="about.html" class="text-gray-700 font-medium hover:text-blue-600 py-3 border-b border-gray-100 transition">About</a>
+      <a href="contact.html" class="text-gray-700 font-medium hover:text-blue-600 py-3 border-b border-gray-100 transition">Contact Us</a>
+      <div class="flex gap-3 mt-5">
+        <a href="login.html" class="flex-1 text-center border-2 border-gray-300 text-gray-700 py-2.5 rounded-full font-medium hover:border-blue-400 hover:text-blue-600 transition">Login</a>
+        <a href="signup.html" class="flex-1 text-center bg-blue-600 text-white py-2.5 rounded-full font-medium hover:bg-blue-700 transition">Sign Up</a>
+      </div>
+    </nav>
+  </div>
 
   <!-- PAGE HERO -->
   <section class="relative pt-40 pb-20 px-10 md:px-24 bg-gradient-to-br from-[#0f2d4f] to-[#1e5799] overflow-hidden">
@@ -67,11 +84,11 @@
     </div>
     <div class="relative z-10 max-w-3xl">
       <p class="text-blue-300 text-sm font-medium uppercase tracking-widest mb-3">Browse Our Collection</p>
-      <h1 class="text-5xl md:text-6xl font-bold text-white mb-5 leading-tight">Find Your <span class="italic text-blue-300">Dream</span> Property</h1>
-      <p class="text-blue-100/80 text-lg">Explore hundreds of premium properties across Lagos and beyond. Filter by type, price, and location to find the perfect match.</p>
+      <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-5 leading-tight">Find Your <span class="italic text-blue-300">Dream</span> Property</h1>
+      <p class="text-blue-100/80 text-base md:text-lg">Explore hundreds of premium properties across Lagos and beyond. Filter by type, price, and location to find the perfect match.</p>
     </div>
     <!-- Stats bar -->
-    <div class="relative z-10 flex gap-10 mt-12 pt-10 border-t border-white/10">
+    <div class="relative z-10 flex flex-wrap gap-8 mt-10 pt-8 border-t border-white/10">
       <div><p class="text-3xl font-bold text-white">1,200+</p><p class="text-blue-200 text-sm mt-1">Listings</p></div>
       <div><p class="text-3xl font-bold text-white">15+</p><p class="text-blue-200 text-sm mt-1">Locations</p></div>
       <div><p class="text-3xl font-bold text-white">₦50B+</p><p class="text-blue-200 text-sm mt-1">In Sales</p></div>
@@ -387,6 +404,13 @@
       if (window.scrollY > 60) navbar.classList.add('navbar-scrolled');
       else navbar.classList.remove('navbar-scrolled');
     });
+    function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const icon = document.getElementById('menuIcon');
+      menu.classList.toggle('hidden');
+      icon.classList.toggle('fa-bars');
+      icon.classList.toggle('fa-times');
+    }
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.filter-btn').forEach(b => {
