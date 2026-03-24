@@ -196,18 +196,18 @@
         </a>
 
         <!-- Stats -->
-        <div class="flex gap-8 mt-12">
+        <div class="flex flex-wrap gap-6 mt-8 md:mt-12">
           <div>
-            <p class="text-3xl font-bold text-white">1,200+</p>
-            <p class="text-sm text-gray-400 mt-1">Properties Listed</p>
+            <p class="text-2xl md:text-3xl font-bold text-white" data-count="1200" data-suffix="+">1,200+</p>
+            <p class="text-xs md:text-sm text-gray-400 mt-1">Properties Listed</p>
           </div>
-          <div class="border-l border-white/20 pl-8">
-            <p class="text-3xl font-bold text-white">850+</p>
-            <p class="text-sm text-gray-400 mt-1">Happy Clients</p>
+          <div class="border-l border-white/20 pl-6">
+            <p class="text-2xl md:text-3xl font-bold text-white" data-count="850" data-suffix="+">850+</p>
+            <p class="text-xs md:text-sm text-gray-400 mt-1">Happy Clients</p>
           </div>
-          <div class="border-l border-white/20 pl-8">
-            <p class="text-3xl font-bold text-white">12+</p>
-            <p class="text-sm text-gray-400 mt-1">Years Experience</p>
+          <div class="border-l border-white/20 pl-6">
+            <p class="text-2xl md:text-3xl font-bold text-white" data-count="12" data-suffix="+">12+</p>
+            <p class="text-xs md:text-sm text-gray-400 mt-1">Years Experience</p>
           </div>
         </div>
       </div>
@@ -222,36 +222,36 @@
 
         <div class="mb-4">
           <label class="text-xs font-medium text-white/70 uppercase tracking-wider">Location</label>
-          <input type="text" placeholder="Enter a city or neighborhood"
+          <input id="heroLocation" type="text" placeholder="Enter a city or neighborhood"
             class="w-full mt-1.5 p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-400 text-gray-800 placeholder-gray-400"
             style="background: rgba(255,255,255,0.85);">
         </div>
 
         <div class="mb-4">
           <label class="text-xs font-medium text-white/70 uppercase tracking-wider">Property Type</label>
-          <select class="w-full mt-1.5 p-3 rounded-xl text-gray-700"
+          <select id="heroType" class="w-full mt-1.5 p-3 rounded-xl text-gray-700"
                   style="background: rgba(255,255,255,0.85);">
-            <option>Any type</option>
-            <option>Villa</option>
-            <option>Apartment</option>
-            <option>Penthouse</option>
-            <option>Duplex</option>
+            <option value="">Any type</option>
+            <option value="villa">Villa</option>
+            <option value="apartment">Apartment</option>
+            <option value="penthouse">Penthouse</option>
+            <option value="duplex">Duplex</option>
           </select>
         </div>
 
         <div class="mb-6">
           <label class="text-xs font-medium text-white/70 uppercase tracking-wider">Price Range</label>
-          <select class="w-full mt-1.5 p-3 rounded-xl text-gray-700"
+          <select id="heroPrice" class="w-full mt-1.5 p-3 rounded-xl text-gray-700"
                   style="background: rgba(255,255,255,0.85);">
-            <option>Any price</option>
-            <option>Under ₦100M</option>
-            <option>₦100M – ₦300M</option>
-            <option>₦300M – ₦500M</option>
-            <option>Above ₦500M</option>
+            <option value="">Any price</option>
+            <option value="0-100">Under ₦100M</option>
+            <option value="100-300">₦100M – ₦300M</option>
+            <option value="300-500">₦300M – ₦500M</option>
+            <option value="500-9999">Above ₦500M</option>
           </select>
         </div>
 
-        <button class="w-full bg-blue-600 text-white py-3.5 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg shadow-blue-600/30">
+        <button class="hero-search-btn w-full bg-blue-600 text-white py-3.5 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg shadow-blue-600/30">
           <i class="fas fa-search mr-2"></i> Search Properties
         </button>
       </div>
@@ -262,37 +262,37 @@
   <!-- ═══════════════════════════════════════════════════ -->
   <!-- GALLERY + LASTING ACHIEVEMENT                       -->
   <!-- ═══════════════════════════════════════════════════ -->
-  <section class="relative bg-gradient-to-b from-gray-100 to-[#0d1117] pt-20 pb-20 overflow-hidden">
+  <section class="relative bg-gradient-to-b from-gray-100 to-[#0d1117] pt-20 pb-20">
 
-    <div class="flex justify-center items-end -space-x-3 relative z-10">
+    <!-- Desktop: Fan gallery (clipped by overflow-hidden wrapper) -->
+    <div class="hidden md:block overflow-hidden">
+      <div class="flex justify-center items-end -space-x-3 relative z-10">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
+          class="w-[180px] h-[270px] object-cover rotate-[-8deg] -translate-y-6 -translate-x-16 border-8 border-white shadow-2xl rounded-sm">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoFT9Zd253lRPIwsQmQbIBfC3G4WIVWQU9Vw&s"
+          class="w-[220px] h-[270px] object-cover rotate-[18deg] -translate-y-6 -translate-x-8 border-8 border-white shadow-2xl rounded-sm">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs8Befu6WYuwMjiCEr1_rXrQ5RU67TXtC4UA&s"
+          class="w-[220px] h-[270px] object-cover rotate-[-3deg] -translate-y-3 -translate-x-4 border-8 border-white shadow-2xl rounded-sm">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6XB9yeL4PjXMuOR4ifjVwhOUYvyPshAN3lw&s"
+          class="w-[280px] h-[360px] object-cover rotate-[11deg] translate-y-6 border-8 border-white shadow-2xl z-30 scale-110 rounded-sm">
+        <img src="https://www.11prop.com/_next/image?url=https%3A%2F%2Fimages.prismic.io%2F11prop-blog%2FZxYdpIF3NbkBXwoe_1-StrategiesforBreakingintotheHigh-EndLuxuryRealEstateMarket-Shutterstock-copy.webp%3Fauto%3Dformat%2Ccompress&w=3840&q=75"
+          class="w-[220px] h-[270px] object-cover rotate-[-5deg] -translate-y-6 translate-x-4 border-8 border-white shadow-2xl rounded-sm">
+        <img src="https://aihkcdnstoragep01.blob.core.windows.net/pgl-release/Images/ArticleImages/24/24867_400.png"
+          class="w-[220px] h-[270px] object-cover rotate-[18deg] -translate-y-4 translate-x-8 border-8 border-white shadow-2xl rounded-sm">
+        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c"
+          class="w-[180px] h-[260px] object-cover rotate-[-10deg] -translate-y-2 translate-x-16 border-8 border-white shadow-2xl rounded-sm">
+      </div>
+    </div>
 
-      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
-        class="w-[180px] h-[270px] object-cover rotate-[-8deg] -translate-y-6 -translate-x-16
-        border-8 border-white shadow-2xl rounded-sm transition-transform duration-300 hover:-translate-y-10 hover:z-20 hover:scale-105 hover:rotate-0">
-
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoFT9Zd253lRPIwsQmQbIBfC3G4WIVWQU9Vw&s"
-        class="w-[220px] h-[270px] object-cover rotate-[18deg] -translate-y-6 -translate-x-8
-        border-8 border-white shadow-2xl rounded-sm transition-transform duration-300 hover:-translate-y-10 hover:z-20 hover:scale-105 hover:rotate-0">
-
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs8Befu6WYuwMjiCEr1_rXrQ5RU67TXtC4UA&s"
-        class="w-[220px] h-[270px] object-cover rotate-[-3deg] -translate-y-3 -translate-x-4
-        border-8 border-white shadow-2xl rounded-sm transition-transform duration-300 hover:-translate-y-10 hover:z-20 hover:scale-105 hover:rotate-0">
-
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6XB9yeL4PjXMuOR4ifjVwhOUYvyPshAN3lw&s"
-        class="w-[280px] h-[360px] object-cover rotate-[11deg] translate-y-6
-        border-8 border-white shadow-2xl z-30 scale-110 rounded-sm transition-transform duration-300 hover:-translate-y-4 hover:z-40 hover:scale-115 hover:rotate-0">
-
-      <img src="https://www.11prop.com/_next/image?url=https%3A%2F%2Fimages.prismic.io%2F11prop-blog%2FZxYdpIF3NbkBXwoe_1-StrategiesforBreakingintotheHigh-EndLuxuryRealEstateMarket-Shutterstock-copy.webp%3Fauto%3Dformat%2Ccompress&w=3840&q=75"
-        class="w-[220px] h-[270px] object-cover rotate-[-5deg] -translate-y-6 translate-x-4
-        border-8 border-white shadow-2xl rounded-sm transition-transform duration-300 hover:-translate-y-10 hover:z-20 hover:scale-105 hover:rotate-0">
-
-      <img src="https://aihkcdnstoragep01.blob.core.windows.net/pgl-release/Images/ArticleImages/24/24867_400.png"
-        class="w-[220px] h-[270px] object-cover rotate-[18deg] -translate-y-4 translate-x-8
-        border-8 border-white shadow-2xl rounded-sm transition-transform duration-300 hover:-translate-y-10 hover:z-20 hover:scale-105 hover:rotate-0">
-
-      <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c"
-        class="w-[180px] h-[260px] object-cover rotate-[-10deg] -translate-y-2 translate-x-16
-        border-8 border-white shadow-2xl rounded-sm transition-transform duration-300 hover:-translate-y-10 hover:z-20 hover:scale-105 hover:rotate-0">
+    <!-- Mobile: Horizontally scrollable gallery strip -->
+    <div class="md:hidden overflow-x-auto" style="-webkit-overflow-scrolling:touch;">
+      <div class="flex gap-3 px-6 min-w-max pb-4 pt-2">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" class="w-[150px] h-[210px] object-cover border-4 border-white shadow-xl rounded-xl flex-shrink-0">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs8Befu6WYuwMjiCEr1_rXrQ5RU67TXtC4UA&s" class="w-[150px] h-[210px] object-cover border-4 border-white shadow-xl rounded-xl flex-shrink-0">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6XB9yeL4PjXMuOR4ifjVwhOUYvyPshAN3lw&s" class="w-[150px] h-[210px] object-cover border-4 border-white shadow-xl rounded-xl flex-shrink-0">
+        <img src="https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4" class="w-[150px] h-[210px] object-cover border-4 border-white shadow-xl rounded-xl flex-shrink-0">
+        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c" class="w-[150px] h-[210px] object-cover border-4 border-white shadow-xl rounded-xl flex-shrink-0">
+      </div>
     </div>
 
     <div class="mt-20 px-10 md:px-24 text-white grid md:grid-cols-2 gap-16 items-center">
@@ -310,17 +310,17 @@
           and every achievement shines bright. The promise of home
           becomes reality, each moment becomes a memory, and every achievement endures.
         </p>
-        <div class="mt-8 flex gap-6">
+        <div class="mt-8 flex flex-wrap gap-6">
           <div class="text-center">
-            <p class="text-2xl font-bold text-white">₦50B+</p>
+            <p class="text-2xl font-bold text-white" data-count="50" data-suffix="B+">₦50B+</p>
             <p class="text-sm text-gray-500 mt-1">Properties Sold</p>
           </div>
-          <div class="text-center border-l border-white/10 pl-6">
-            <p class="text-2xl font-bold text-white">98%</p>
+          <div class="text-center">
+            <p class="text-2xl font-bold text-white" data-count="98" data-suffix="%">98%</p>
             <p class="text-sm text-gray-500 mt-1">Satisfaction Rate</p>
           </div>
-          <div class="text-center border-l border-white/10 pl-6">
-            <p class="text-2xl font-bold text-white">25+</p>
+          <div class="text-center">
+            <p class="text-2xl font-bold text-white" data-count="25" data-suffix="+">25+</p>
             <p class="text-sm text-gray-500 mt-1">Cities Covered</p>
           </div>
         </div>
@@ -915,11 +915,13 @@
   </footer>
 
   <script>
+    /* ── Navbar scroll ── */
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 60) navbar.classList.add('navbar-scrolled');
-      else navbar.classList.remove('navbar-scrolled');
+      navbar.classList.toggle('navbar-scrolled', window.scrollY > 60);
     });
+
+    /* ── Mobile menu ── */
     function toggleMenu() {
       const menu = document.getElementById('mobileMenu');
       const icon = document.getElementById('menuIcon');
@@ -927,6 +929,70 @@
       icon.classList.toggle('fa-bars');
       icon.classList.toggle('fa-times');
     }
+
+    /* ── Animated counters ── */
+    function animateCounter(el) {
+      const target = parseInt(el.dataset.count);
+      const suffix = el.dataset.suffix || '';
+      const prefix = el.dataset.prefix || '';
+      const duration = 1600;
+      const step = Math.ceil(target / (duration / 16));
+      let current = 0;
+      const timer = setInterval(() => {
+        current = Math.min(current + step, target);
+        el.textContent = prefix + current + suffix;
+        if (current >= target) clearInterval(timer);
+      }, 16);
+    }
+
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+
+    document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(el));
+
+    /* ── Hero search form → navigate to properties ── */
+    const heroSearchBtn = document.querySelector('.hero-search-btn');
+    if (heroSearchBtn) {
+      heroSearchBtn.addEventListener('click', () => {
+        const loc = document.getElementById('heroLocation')?.value.trim() || '';
+        const type = document.getElementById('heroType')?.value || '';
+        const price = document.getElementById('heroPrice')?.value || '';
+        const params = new URLSearchParams();
+        if (loc) params.set('q', loc);
+        if (type) params.set('type', type);
+        if (price) params.set('price', price);
+        window.location.href = 'properties.html' + (params.toString() ? '?' + params.toString() : '');
+      });
+    }
+
+    /* ── Find Properties button ── */
+    document.querySelector('a[href="#"]')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.location.href = 'properties.html';
+    });
+
+    /* ── Scroll-reveal for sections ── */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('section').forEach(sec => {
+      sec.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      sec.style.opacity = '0';
+      sec.style.transform = 'translateY(24px)';
+      revealObserver.observe(sec);
+    });
   </script>
 
 </body>
