@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estatevita</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,700;1,9..144,300;1,9..144,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --blue: #2563eb;
+      --blue-lt: #3b82f6;
+      --blue-glow: rgba(37,99,235,0.35);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: 'Outfit', sans-serif; background: #fff; overflow-x: hidden; }
+    h1, h2, h3, .font-serif { font-family: 'Fraunces', serif; }
+
+    /* ─── Luxury brand name font ─── */
+    .brand-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      font-size: 1.55rem;
+    }
+
+    /* ─── scrollbar hide ─── */
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { scrollbar-width: none; -ms-overflow-style: none; }
+
+    /* ─── float ─── */
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-14px); }
+    }
+    .float-card { animation: float 5.5s ease-in-out infinite; }
+
+    /* ─── glass ─── */
+    .glass {
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.28);
+    }
+
+    /* ─── navbar ─── */
+    .navbar-scrolled {
+      background: rgba(255,255,255,0.93) !important;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 2px 24px rgba(0,0,0,0.08);
+    }
+        .navbar-scrolled-text {
+      color: #374151 !important;
+    }
+    #navLinks a { transition: color 0.3s ease; display: flex; align-items: center; gap: 8px;}
+    #navLinks i{
+      width: 4px;
+      height: 4px;
+    }
+    /* ─── listing cards ─── */
+    .listing-card { position: relative;  padding-bottom: 6px; min-width: 300px; overflow: hidden; height: 420px; }
+
+    .listing-normal { height: 100%; display: flex; flex-direction: column; }
+    .listing-hover {
+      position: absolute; inset: 0; border-radius: 1rem; overflow: hidden;
+      opacity: 0; transform: scale(1.04);
+      transition: opacity .45s cubic-bezier(.4,0,.2,1), transform .45s cubic-bezier(.4,0,.2,1);
+      pointer-events: none;
+    }
+    .listing-hover img { width: 100%; height: 100%; object-fit: cover; }
+    .listing-hover .hover-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top,rgba(0,0,0,.75),rgba(0,0,0,.32));
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+    }
+    .listing-card:hover .listing-hover { opacity:1; transform:scale(1); pointer-events:auto; }
+
+    /* ─── prop card ─── */
+    .prop-card { overflow: hidden; }
+    .prop-card .prop-img { transition: transform .5s ease; }
+    .prop-card:hover .prop-img { transform: scale(1.06); }
+    .prop-card .prop-overlay { transition: opacity .4s ease; }
+    .prop-card:hover .prop-overlay { opacity:1 !important; }
+
+    /* ─── service card — glassy professional ─── */
+    .service-card {
+      transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+      background: rgba(255,255,255,0.72);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(200,215,245,0.6);
+      box-shadow: 0 4px 24px rgba(37,99,235,0.06), 0 1px 4px rgba(0,0,0,0.04);
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 60px rgba(37,99,235,0.16), 0 4px 20px rgba(0,0,0,0.06);
+      border-color: rgba(99,162,255,0.45);
+    }
+    .service-card .icon-wrap {
+      width: 58px; height: 58px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(37,99,235,0.12), rgba(99,162,255,0.08));
+      border: 1px solid rgba(99,162,255,0.25);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .service-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.55rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      color: #0f172a;
+    }
+    .service-card p {
+      color: #64748b;
+      font-size: 0.94rem;
+      line-height: 1.75;
+    }
+    .service-card .learn-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: #2563eb;
+      font-weight: 500;
+      font-size: 0.9rem;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      transition: gap 0.2s ease;
+    }
+    .service-card .learn-link:hover { gap: 12px; }
+
+    /* ═══════════════════════════════════════════
+       GALLERY SECTION — scroll-triggered fan
+    ═══════════════════════════════════════════ */
+    #gallery-section {
+      position: relative;
+      background: linear-gradient(to bottom, #f1f5f9 0%, #0d1117 55%);
+      padding: 80px 0 0;
+      overflow: hidden;
+    }
+
+    .fan-wrapper {
+      position: relative;
+      height: 420px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .fan-img {
+      position: absolute;
+      bottom: 0;
+      border: 8px solid #fff;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.28);
+      border-radius: 4px;
+      object-fit: cover;
+      transform-origin: bottom center;
+      will-change: transform, opacity;
+      opacity: 0;
+    }
+
+    .fan-img:nth-child(1) { width:185px; height:275px; --rx:-8deg;  --tx:-340px; --ty:-24px; }
+    .fan-img:nth-child(2) { width:225px; height:275px; --rx:18deg;  --tx:-230px; --ty:-24px; }
+    .fan-img:nth-child(3) { width:225px; height:275px; --rx:-3deg;  --tx:-105px; --ty:-12px; }
+    .fan-img:nth-child(4) { width:285px; height:365px; --rx:11deg;  --tx:0px;    --ty:28px;  z-index:10; transform: rotate(11deg) translate(0, 28px) scale(1.1) !important; }
+    .fan-img:nth-child(5) { width:225px; height:275px; --rx:-5deg;  --tx:130px;  --ty:-24px; }
+    .fan-img:nth-child(6) { width:225px; height:275px; --rx:18deg;  --tx:245px;  --ty:-16px; }
+    .fan-img:nth-child(7) { width:185px; height:265px; --rx:-10deg; --tx:345px;  --ty:-8px; }
+
+    /* ═══════════════════════════════════════════
+       BUILDING / PREMIUM LOCATIONS SECTION
+    ═══════════════════════════════════════════ */
+    #building-section {
+      position: relative;
+      background: #0a0f1a;
+      overflow: hidden;
+    }
+
+    .building-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .building-img {
+      display: block;
+      width: 100%;
+      height: 100vh;
+      max-height: 900px;
+      object-fit: cover;
+      object-position: center top;
+      opacity: 0.85;
+      will-change: transform;
+    }
+
+    .building-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right,
+        rgba(10,15,26,0.55) 0%,
+        rgba(10,15,26,0.1) 35%,
+        rgba(10,15,26,0.1) 65%,
+        rgba(10,15,26,0.55) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .building-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 220px;
+      background: linear-gradient(to top, #0a0f1a 0%, transparent 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* ─── Floating property cards (gentle float-up) ─── */
+    .prop-float-card {
+      position: absolute;
+      width: 200px;
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 16px;
+      padding: 14px;
+      z-index: 20;
+      will-change: transform, opacity;
+      opacity: 0;
+      transform: translateY(30px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    .prop-float-card img {
+      width: 100%;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .prop-float-card .card-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 3px;
+    }
+
+    .prop-float-card .card-loc {
+      font-size: 11px;
+      color: rgba(255,255,255,0.55);
+      display: flex; align-items: center; gap: 5px;
+    }
+
+    .prop-float-card .card-tag {
+      display: inline-block;
+      font-size: 9px;
+      background: rgba(37,99,235,0.55);
+      color: #a5c1ff;
+      border-radius: 20px;
+      padding: 2px 8px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    /* right-side positions */
+    .prop-float-card:nth-child(2) { right: 7%;  top: 12%; }
+    .prop-float-card:nth-child(3) { right: 4%;  top: 30%; }
+    .prop-float-card:nth-child(4) { right: 9%;  top: 50%; }
+    .prop-float-card:nth-child(5) { right: 5%;  top: 68%; }
+
+    /* left-side positions */
+    .prop-float-card:nth-child(6) { left: 6%;   top: 18%; }
+    .prop-float-card:nth-child(7) { left: 3%;   top: 40%; }
+
+    /* pin label */
+    .building-label {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      z-index: 5;
+      text-align: center;
+      pointer-events: none;
+    }
+
+    /* ═══════════════════════════════════════════
+       GLASS TESTIMONIALS
+    ═══════════════════════════════════════════ */
+    #testimonials-section {
+      background: #080e1c;
+      position: relative;
+      overflow: hidden;
+      padding: 100px 40px;
+    }
+
+    #testimonials-section::before {
+      content: '';
+      position: absolute;
+      top: -200px; left: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(37,99,235,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #testimonials-section::after {
+      content: '';
+      position: absolute;
+      bottom: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(99,102,241,0.14) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .testi-glass {
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+    }
+
+    .testi-glass::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    }
+
+    .testi-glass:hover {
+      transform: translateY(-6px);
+      border-color: rgba(99,162,255,0.35);
+      box-shadow: 0 24px 60px rgba(37,99,235,0.18);
+    }
+
+    .testi-glass .quote-mark {
+      font-family: 'Fraunces', serif;
+      font-size: 80px;
+      line-height: 0.6;
+      color: rgba(99,162,255,0.2);
+      position: absolute;
+      top: 24px;
+      right: 24px;
+    }
+
+    .testi-glass .stars { color: #f59e0b; letter-spacing: 2px; font-size: 12px; margin-bottom: 16px; }
+    .testi-glass p { color: rgba(255,255,255,0.7); font-size: 14px; line-height: 1.75; margin-bottom: 24px; }
+    .testi-glass .author-name { color: #fff; font-weight: 600; font-size: 15px; }
+    .testi-glass .author-role { color: rgba(255,255,255,0.4); font-size: 12px; margin-top: 2px; }
+
+    .testi-glass .avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 700; font-size: 14px;
+      font-family: 'Fraunces', serif;
+      flex-shrink: 0;
+    }
+
+    .testi-featured {
+      background: linear-gradient(135deg, rgba(37,99,235,0.2) 0%, rgba(99,102,241,0.12) 100%);
+      border-color: rgba(99,162,255,0.3);
+    }
+
+    /* ─── vision section ─── */
+    .vision-section { background: radial-gradient(circle at top right, #d97706, #271b12); }
+    .vision-section img {
+  height: 260px;
+}
+    /* ─── achievement numbers ─── */
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
+  
+
+  
+    .reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+
+.reveal.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.hero-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  line-height: 1.2;
+}
+
+
+.fade-text {
+  animation: fadeSwitch 2s ease;
+}
+#navLinks i {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2;
+}
+@keyframes fadeSwitch {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+  @media (max-width: 900px) {
+      .testi-grid { grid-template-columns: 1fr 1fr !important; }
+      .testi-glass[style*="span 2"] { grid-column: span 2 !important; }
+    }
+    @media (max-width: 600px) {
+      .testi-grid { grid-template-columns: 1fr !important; }
+       .reveal-x {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 0.6s ease;
+  }
+
+  .reveal-x.show {
+    opacity: 1;
+    transform: translateX(0);
+  }
+      .testi-glass[style*="span 2"] { grid-column: span 1 !important; }
+       #gallery-section .grid {
+    gap: 20px;
+  }
+
+  #gallery-section h2 {
+    font-size: 2rem;
+  }
+    section {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .listing-card {
+    min-width: 260px;
+  }
+    .vision-section img {
+    height: 320px;
+  }
+
+    }
+  </style>
+</head>
+<body class="bg-white">
+
+  <!-- ══════════════════════════════ NAVBAR ══════════════════════════════ -->
+  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-10 md:px-24 py-3 transition-all duration-300"
+    style="background:rgba(255,255,255,0.12);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,0.22);">
+
+    <div class="flex items-center gap-2">
+      <span class="text-blue-500">
+       <!-- <img src="images/RuT2D-removebg-preview.png" alt="brand logo" class="w-12 h-12 object-cover rounded-full"> -->
+      </span>
+      <span id='brandName' class="text-2xl font-semibold text-white"   >Estatevita</span>
+    </div>
+
+    <nav id="navLinks" class="hidden md:flex gap-12 text-gray-50 font-medium">
+      <a href="#" class="text-blue-600 font-semibold">
+  <i data-lucide="home"></i>Home</a>
+      <a href="#" class="hover:text-blue-600 transition"> <i data-lucide="table-properties"></i>Properties</a>
+      <a href="#" class="hover:text-blue-600 transition"><i data-lucide="info"></i>About</a>
+      <a href="#" class="hover:text-blue-600 transition"><i data-lucide="phone"></i>Contact Us</a>
+    </nav>
+
+    <div class="hidden md:flex items-center text-white gap-6">
+      <a href="#" id="logLink" class=" font-medium hover:text-blue-600 transition">Login</a>
+      <div class="border-l-2 h-7 border-gray-400"></div>
+      <a href="#" class="border-2 border-blue-600 text-blue-800 px-6 py-2 rounded-full font-medium hover:bg-blue-600 hover:text-white transition-all duration-300">Sign Up</a>
+    </div>
+    <button id="menuBtn" onclick="toggleMenu()" class="md:hidden text-gray-800 text-2xl focus:outline-none p-1">
+      <i class="fas fa-bars" id="menuIcon"></i>
+    </button>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="fixed inset-x-0 top-[60px] z-40 hidden bg-white/95 backdrop-blur-md shadow-xl border-t border-gray-100 md:hidden">
+    <nav class="flex flex-col px-6 py-6 gap-1">
+      <a href="#" class="text-blue-600 font-semibold py-3 border-b border-gray-100">Home</a>
+      <a href="#" class="text-gray-700 font-medium hover:text-blue-600 py-3 border-b border-gray-100 transition">Properties</a>
+      <a href="#" class="text-gray-700 font-medium hover:text-blue-600 py-3 border-b border-gray-100 transition">About</a>
+      <a href="#" class="text-gray-700 font-medium hover:text-blue-600 py-3 border-b border-gray-100 transition">Contact Us</a>
+      <div class="flex gap-3 mt-5">
+        <a href="#" class="flex-1 text-center border-2 border-gray-300 text-gray-700 py-2.5 rounded-full font-medium hover:border-blue-400 hover:text-blue-600 transition">Login</a>
+        <a href="#" class="flex-1 text-center bg-blue-600 text-white py-2.5 rounded-full font-medium hover:bg-blue-700 transition">Sign Up</a>
+      </div>
+    </nav>
+  </div>
+
+  <!-- ══════════════════════════════ HERO ══════════════════════════════ -->
+  <section class="relative h-screen flex items-center px-10 lg:px-24 ">
+    <img src="https://www.vanulaw.com/wp-content/uploads/2017/10/house-03.jpg" class="absolute inset-0 w-full h-full object-cover"/>
+    <!-- Stronger gradient on the left/text side, fades out on the right -->
+    <div class="absolute inset-0" style="background: linear-gradient(to right, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.72) 38%, rgba(0,0,0,0.28) 68%, rgba(0,0,0,0.08) 100%);"></div>
+
+    <div class="relative z-10 w-full flex items-center justify-between pt-20">
+      <div class="max-w-xl text-white">
+        <span class="inline-block text-sm font-medium tracking-widest text-blue-300 uppercase mb-4 px-3 py-1 rounded-full border border-blue-400/40 bg-blue-500/10">
+          Premier Real Estate
+        </span>
+      <h1 class="hero-title">
+        <span>Home Is Where</span><br>
+        <span id="changingText" class="text-blue-400 italic">Your Story</span><br>
+        <span>Begins.</span>
+      </h1>
+        <p class="mb-8 mt-5 md:mb-10 text-base md:text-lg text-gray-300 leading-relaxed">
+          Unlock your dream home and explore endless possibilities with<br>
+          <span class="text-blue-400 font-semibold">EstateVita</span> — your premier real estate destination.
+        </p>
+        <a href="#" class="inline-block text-lg px-10 py-3.5 bg-blue-600 rounded-full border-2 border-white/30 text-white font-medium hover:bg-blue-700 hover:scale-105 transition-all duration-300 shadow-lg shadow-blue-600/30">
+          Find Properties
+        </a>
+        <div class="flex flex-wrap gap-6 mt-10">
+          <div>
+            <p class="text-2xl md:text-3xl font-bold text-white stat-num" data-count="1200" data-suffix="+">1,200+</p>
+            <p class="text-xs md:text-sm text-gray-400 mt-1">Properties Listed</p>
+          </div>
+          <div class="border-l border-white/20 pl-6">
+            <p class="text-2xl md:text-3xl font-bold text-white stat-num" data-count="850" data-suffix="+">850+</p>
+            <p class="text-xs md:text-sm text-gray-400 mt-1">Happy Clients</p>
+          </div>
+          <div class="border-l border-white/20 pl-6">
+            <p class="text-2xl md:text-3xl font-bold text-white stat-num" data-count="12" data-suffix="+">12+</p>
+            <p class="text-xs md:text-sm text-gray-400 mt-1">Years Experience</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Floating search card -->
+      <div class="hidden md:block float-card rounded-2xl p-7 w-[440px] shadow-2xl"
+           style="background:rgba(255,255,255,0.13);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid rgba(255,255,255,0.28);">
+        <h2 class="text-xl font-semibold mb-5 text-white" style="font-family:'Fraunces',serif;">Find Your Dream Home</h2>
+        <div class="mb-4">
+          <label class="text-xs font-medium text-white/70 uppercase tracking-wider">Location</label>
+          <input id="heroLocation" type="text" placeholder="Enter a city or neighborhood"
+            class="w-full mt-1.5 p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-400 text-gray-800 placeholder-gray-400"
+            style="background:rgba(255,255,255,0.85);">
+        </div>
+        <div class="mb-4">
+          <label class="text-xs font-medium text-white/70 uppercase tracking-wider">Property Type</label>
+          <select class="w-full mt-1.5 p-3 rounded-xl text-gray-700" style="background:rgba(255,255,255,0.85);">
+            <option>Any type</option><option>Villa</option><option>Apartment</option><option>Penthouse</option>
+          </select>
+        </div>
+        <div class="mb-6">
+          <label class="text-xs font-medium text-white/70 uppercase tracking-wider">Price Range</label>
+          <select class="w-full mt-1.5 p-3 rounded-xl text-gray-700" style="background:rgba(255,255,255,0.85);">
+            <option>Any price</option><option>Under ₦100M</option><option>₦100M – ₦300M</option><option>Above ₦500M</option>
+          </select>
+        </div>
+        <button class="w-full bg-blue-600 text-white py-3.5 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg shadow-blue-600/30">
+          <i class="fas fa-search mr-2"></i> Search Properties
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════ GALLERY + ACHIEVEMENT ══════════════════════════════ -->
+  <section id="gallery-section">
+
+    <!-- Desktop fan -->
+    <div id="fan-desktop" class="hidden md:block">
+      <div class="fan-wrapper" id="fanWrapper">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" class="fan-img" alt="">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoFT9Zd253lRPIwsQmQbIBfC3G4WIVWQU9Vw&s" class="fan-img" alt="">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs8Befu6WYuwMjiCEr1_rXrQ5RU67TXtC4UA&s" class="fan-img" alt="">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6XB9yeL4PjXMuOR4ifjVwhOUYvyPshAN3lw&s" class="fan-img" alt="">
+        <img src="https://www.11prop.com/_next/image?url=https%3A%2F%2Fimages.prismic.io%2F11prop-blog%2FZxYdpIF3NbkBXwoe_1-StrategiesforBreakingintotheHigh-EndLuxuryRealEstateMarket-Shutterstock-copy.webp%3Fauto%3Dformat%2Ccompress&w=3840&q=75" class="fan-img" alt="">
+        <img src="https://aihkcdnstoragep01.blob.core.windows.net/pgl-release/Images/ArticleImages/24/24867_400.png" class="fan-img" alt="">
+        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c" class="fan-img" alt="">
+      </div>
+    </div>
+
+    <!-- Mobile strip -->
+    <div class="md:hidden overflow-x-auto" style="-webkit-overflow-scrolling:touch;">
+      <div class="flex gap-3 px-6 min-w-max pb-4 pt-2">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" class="w-[150px] h-[210px] object-cover border-4 border-white shadow-xl rounded-xl flex-shrink-0">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs8Befu6WYuwMjiCEr1_rXrQ5RU67TXtC4UA&s" class="w-[150px] h-[210px] object-cover border-4 border-white shadow-xl rounded-xl flex-shrink-0">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6XB9yeL4PjXMuOR4ifjVwhOUYvyPshAN3lw&s" class="w-[150px] h-[210px] object-cover border-4 border-white shadow-xl rounded-xl flex-shrink-0">
+        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c" class="w-[150px] h-[210px] object-cover border-4 border-white shadow-xl rounded-xl flex-shrink-0">
+      </div>
+    </div>
+
+    <!-- Achievement text -->
+    <div class="mt-20 px-10 md:px-24 pb-20 text-white grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+      <div>
+        <p class="text-blue-400 text-sm font-medium uppercase tracking-widest mb-3">Our Legacy</p>
+        <h2 class="leading-tight" style="font-family:'Fraunces',serif;font-size:clamp(2.6rem,5vw,4rem);">
+          Lasting <br><span class="italic text-blue-400">Achievement</span>
+        </h2>
+      </div>
+      <div class="text-gray-300 leading-relaxed text-lg border-l border-white/10 pl-10">
+        <p>Discover your perfect home and begin your story: <span class="text-blue-400 font-medium">Estatevita</span> — where every dream finds its place, every journey begins, and every achievement shines bright.</p>
+        <div class="mt-8 flex flex-wrap gap-6">
+          <div>
+            <p class="text-2xl font-bold text-white stat-num" data-count="50" data-suffix="B+">₦50B+</p>
+            <p class="text-sm text-gray-500 mt-1">Properties Sold</p>
+          </div>
+          <div>
+            <p class="text-2xl font-bold text-white stat-num" data-count="98" data-suffix="%">98%</p>
+            <p class="text-sm text-gray-500 mt-1">Satisfaction Rate</p>
+          </div>
+          <div>
+            <p class="text-2xl font-bold text-white stat-num" data-count="25" data-suffix="+">25+</p>
+            <p class="text-sm text-gray-500 mt-1">Cities Covered</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════ FEATURED LISTINGS ══════════════════════════════ -->
+  <section class="px-10 md:px-20 py-20 bg-white">
+    <div class="border border-gray-200 -mt-4 mb-14"></div>
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-14">
+      <div>
+        <p class="text-blue-600 text-sm font-medium uppercase tracking-widest mb-2">Hand-picked for you</p>
+        <h2 class="text-4xl md:text-5xl" style="font-family:'Fraunces',serif;">Featured Listings</h2>
+      </div>
+      <p class="max-w-md text-gray-500 leading-relaxed">
+        Dive into our exquisite collection at <span class="text-blue-600 font-medium">Estatevita</span> — where every corner whispers comfort and every detail is crafted with perfection.
+      </p>
+    </div>
+    <div class="flex justify-start gap-3 mb-4">
+  <button onclick="scrollListings('left')" class="px-3 py-2 bg-gray-200 rounded-full">←</button>
+  <button onclick="scrollListings('right')" class="px-3 py-2 bg-gray-200 rounded-full">→</button>
+</div>
+
+  <div id="scrollbox" class="overflow-x-auto scrollbar-hide">
+  <div class="flex gap-6 w-max snap-x snap-mandatory">
+
+    <!-- Card 1 -->
+    <div class="listing-card min-w-[380px] snap-start rounded-2xl border border-gray-200 bg-white shadow-sm cursor-pointer">
+      <div class="listing-normal p-6">
+        <h3 class="text-2xl font-medium mb-1 text-center" style="font-family:'Fraunces',serif;">EstateVita Residences</h3>
+        <div class="flex justify-between text-gray-500 text-sm mb-5 mt-2">
+          <span class="flex items-center gap-1"><i class="fas fa-tag text-blue-400"></i> Luxury Villa</span>
+          <span class="flex items-center gap-1"><i class="fas fa-location-dot text-blue-400"></i> Lekki Phase 1</span>
+        </div>
+        <div class="flex justify-center mb-5">
+          <div class="w-[190px] h-[190px] rounded-full overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" class="w-full h-full object-cover">
+          </div>
+        </div>
+        <div class="flex justify-between items-end pt-3 border-t border-gray-100 mt-auto">
+          <div class="text-gray-600 space-y-1 text-sm">
+            <p><i class="fas fa-bed w-4 text-blue-400 mr-1"></i> 4 Bed Rooms</p>
+            <p><i class="fas fa-bath w-4 text-blue-400 mr-1"></i> 5 Bath Rooms</p>
+            <p><i class="fas fa-couch w-4 text-blue-400 mr-1"></i> 2 Living Rooms</p>
+            <p><i class="fas fa-water-ladder w-4 text-blue-400 mr-1"></i> Swimming Pool</p>
+          </div>
+          <div class="text-right">
+            <p class="text-xs text-gray-400 mb-1">Starting from</p>
+            <p class="text-lg font-bold text-blue-700" style="font-family:'Fraunces',serif;">₦ 300M</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="listing-card min-w-[380px] snap-start rounded-2xl border border-gray-200 bg-white shadow-sm cursor-pointer">
+      <div class="listing-normal p-6">
+        <h3 class="text-2xl font-medium mb-1 text-center" style="font-family:'Fraunces',serif;">EstateVita Residences</h3>
+        <div class="flex justify-between text-gray-500 text-sm mb-5 mt-2">
+          <span class="flex items-center gap-1"><i class="fas fa-tag text-blue-400"></i> Luxury Villa</span>
+          <span class="flex items-center gap-1"><i class="fas fa-location-dot text-blue-400"></i> Lekki Phase 1</span>
+        </div>
+        <div class="flex justify-center mb-5">
+          <div class="w-[190px] h-[190px] rounded-full overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c" class="w-full h-full object-cover">
+          </div>
+        </div>
+        <div class="flex justify-between items-end pt-3 border-t border-gray-100 mt-auto">
+          <div class="text-gray-600 space-y-1 text-sm">
+            <p><i class="fas fa-bed w-4 text-blue-400 mr-1"></i> 4 Bed Rooms</p>
+            <p><i class="fas fa-bath w-4 text-blue-400 mr-1"></i> 5 Bath Rooms</p>
+            <p><i class="fas fa-couch w-4 text-blue-400 mr-1"></i> 2 Living Rooms</p>
+            <p><i class="fas fa-water-ladder w-4 text-blue-400 mr-1"></i> Swimming Pool</p>
+          </div>
+          <div class="text-right">
+            <p class="text-xs text-gray-400 mb-1">Starting from</p>
+            <p class="text-lg font-bold text-blue-700" style="font-family:'Fraunces',serif;">₦ 300M</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="listing-card min-w-[380px] snap-start rounded-2xl border border-gray-200 bg-white shadow-sm cursor-pointer">
+      <div class="listing-normal p-6">
+        <h3 class="text-2xl font-medium mb-1 text-center" style="font-family:'Fraunces',serif;">EstateVita Residences</h3>
+        <div class="flex justify-between text-gray-500 text-sm mb-5 mt-2">
+          <span class="flex items-center gap-1"><i class="fas fa-tag text-blue-400"></i> Luxury Villa</span>
+          <span class="flex items-center gap-1"><i class="fas fa-location-dot text-blue-400"></i> Lekki Phase 1</span>
+        </div>
+        <div class="flex justify-center mb-5">
+          <div class="w-[190px] h-[190px] rounded-full overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e" class="w-full h-full object-cover">
+          </div>
+        </div>
+        <div class="flex justify-between items-end pt-3 border-t border-gray-100 mt-auto">
+          <div class="text-gray-600 space-y-1 text-sm">
+            <p><i class="fas fa-bed w-4 text-blue-400 mr-1"></i> 3 Bed Rooms</p>
+            <p><i class="fas fa-bath w-4 text-blue-400 mr-1"></i> 3 Bath Rooms</p>
+            <p><i class="fas fa-couch w-4 text-blue-400 mr-1"></i> 2 Living Rooms</p>
+          </div>
+          <div class="text-right">
+            <p class="text-xs text-gray-400 mb-1">Starting from</p>
+            <p class="text-lg font-bold text-blue-700" style="font-family:'Fraunces',serif;">₦ 400M</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="listing-card min-w-[380px] snap-start rounded-2xl border border-gray-200 bg-white shadow-sm cursor-pointer">
+      <div class="listing-normal p-6">
+        <h3 class="text-2xl font-medium mb-1 text-center" style="font-family:'Fraunces',serif;">EstateVita Residences</h3>
+        <div class="flex justify-between text-gray-500 text-sm mb-5 mt-2">
+          <span class="flex items-center gap-1"><i class="fas fa-tag text-blue-400"></i> Luxury Apartment</span>
+          <span class="flex items-center gap-1"><i class="fas fa-location-dot text-blue-400"></i> Victoria Island</span>
+        </div>
+        <div class="flex justify-center mb-5">
+          <div class="w-[190px] h-[190px] rounded-full overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde" class="w-full h-full object-cover">
+          </div>
+        </div>
+        <div class="flex justify-between items-end pt-3 border-t border-gray-100 mt-auto">
+          <div class="text-gray-600 space-y-1 text-sm">
+            <p><i class="fas fa-bed w-4 text-blue-400 mr-1"></i> 2 Bed Rooms</p>
+            <p><i class="fas fa-bath w-4 text-blue-400 mr-1"></i> 2 Bath Rooms</p>
+            <p><i class="fas fa-couch w-4 text-blue-400 mr-1"></i> 1 Living Room</p>
+          </div>
+          <div class="text-right">
+            <p class="text-xs text-gray-400 mb-1">Starting from</p>
+            <p class="text-lg font-bold text-blue-700" style="font-family:'Fraunces',serif;">₦ 200M</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="listing-card min-w-[380px] snap-start rounded-2xl border border-gray-200 bg-white shadow-sm cursor-pointer">
+      <div class="listing-normal p-6">
+        <h3 class="text-2xl font-medium mb-1 text-center" style="font-family:'Fraunces',serif;">EstateVita Residences</h3>
+        <div class="flex justify-between text-gray-500 text-sm mb-5 mt-2">
+          <span class="flex items-center gap-1"><i class="fas fa-tag text-blue-400"></i> Penthouse</span>
+          <span class="flex items-center gap-1"><i class="fas fa-location-dot text-blue-400"></i> Ikoyi, Lagos</span>
+        </div>
+        <div class="flex justify-center mb-5">
+          <div class="w-[190px] h-[190px] rounded-full overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4" class="w-full h-full object-cover">
+          </div>
+        </div>
+        <div class="flex justify-between items-end pt-3 border-t border-gray-100 mt-auto">
+          <div class="text-gray-600 space-y-1 text-sm">
+            <p><i class="fas fa-bed w-4 text-blue-400 mr-1"></i> 5 Bed Rooms</p>
+            <p><i class="fas fa-bath w-4 text-blue-400 mr-1"></i> 6 Bath Rooms</p>
+            <p><i class="fas fa-couch w-4 text-blue-400 mr-1"></i> 3 Living Rooms</p>
+          </div>
+          <div class="text-right">
+            <p class="text-xs text-gray-400 mb-1">Starting from</p>
+            <p class="text-lg font-bold text-blue-700" style="font-family:'Fraunces',serif;">₦ 500M</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+    <div class="flex justify-center mt-10">
+      <button class="px-10 py-3 bg-blue-700 rounded-full text-white font-semibold hover:bg-blue-800 transition-all duration-300 shadow-lg shadow-blue-700/20">See More Properties</button>
+    </div>
+    <div class="border border-gray-200 mt-14"></div>
+  </section>
+
+ <!-- ══════════════════════════════ PREMIUM LOCATIONS (formerly Building Scroll) ══════════════════════════════ -->
+<section id="building-section">
+  <div class="building-wrap">
+
+    <img
+      src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=80"
+      alt="Tall Building"
+      id="buildingImg"
+      class="building-img"
+      onerror="this.src='https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1600&q=80'"
+    >
+
+    <div class="building-label text-white">
+  <p class="uppercase tracking-[0.3em] text-xs text-blue-400 mb-3">
+    Premium Locations
+  </p>
+  <h2 class="text-4xl md:text-6xl font-semibold leading-tight">
+    Sky-High <br>
+    <span class="italic text-blue-400">Living</span>
+  </h2>
+</div>
+
+  </div>
+</section>
+
+  <!-- ══════════════════════════════ SERVICES — What We Offer ══════════════════════════════ -->
+  <section class="px-10 md:px-20 py-24" style="background: linear-gradient(135deg, #f0f4ff 0%, #e8efff 50%, #f5f7ff 100%);">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <p class="text-blue-600 text-xs font-medium uppercase tracking-widest mb-3">What We Offer</p>
+  <h2 style="font-family:'Fraunces',serif;font-size:clamp(2rem,4vw,3rem);color:#2b2828;margin-bottom:12px;">
+          Your Complete <span class="italic" style="color:#60a5fa;">Experience</span>
+        </h2>
+      <p class="text-gray-500 leading-relaxed">At EstateVita, we go beyond selling properties to deliver a smooth and rewarding journey.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+
+      <div class="service-card rounded-2xl p-9 flex flex-col gap-5">
+        <div class="icon-wrap">
+          <i class="fas fa-home text-blue-600 text-xl"></i>
+        </div>
+        <h3>Finance a Home</h3>
+        <p>Flexible and reliable financing options tailored to your budget and lifestyle, backed by trusted partners.</p>
+        <a href="#" class="learn-link">Learn More <i class="fas fa-arrow-right text-xs"></i></a>
+      </div>
+
+      <div class="service-card rounded-2xl p-9 flex flex-col gap-5">
+        <div class="icon-wrap">
+          <i class="fas fa-wallet text-blue-600 text-xl"></i>
+        </div>
+        <h3>Sell a Home</h3>
+        <p>List your property and reach the right buyers with ease. We handle valuations, marketing, and negotiations.</p>
+        <a href="#" class="learn-link">Learn More <i class="fas fa-arrow-right text-xs"></i></a>
+      </div>
+
+      <div class="service-card rounded-2xl p-9 flex flex-col gap-5">
+        <div class="icon-wrap">
+          <i class="fas fa-building-columns text-blue-600 text-xl"></i>
+        </div>
+        <h3>Rent a Home</h3>
+        <p>Find comfortable, well-vetted rental spaces that perfectly suit your lifestyle, family size, and budget.</p>
+        <a href="#" class="learn-link">Learn More <i class="fas fa-arrow-right text-xs"></i></a>
+      </div>
+
+    </div>
+  </section>
+   <!-- ══════════════════════════════ VISION & MISSION ══════════════════════════════ -->
+  <section class="vision-section px-10 md:px-24 py-20 text-white">
+   <div class="grid md:grid-cols-2 gap-14 items-center">
+      <div class="flex flex-col gap-6">
+        <div>
+          <p class="text-amber-300 text-sm font-medium uppercase tracking-widest mb-2">Who We Are</p>
+          <h2 class="text-4xl md:text-5xl font-bold" style="font-family:'Fraunces',serif;">Our Vision</h2>
+        </div>
+        <p class="text-amber-50/80 text-base leading-relaxed">"At EstateVita, our vision is to redefine modern living by creating timeless, high-quality homes that elevate everyday life."</p>
+        <div class="relative rounded-2xl overflow-hidden shadow-2xl mt-2">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" class="w-full h-[280px] object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+        </div>
+      </div>
+      <div class="flex flex-col gap-6 md:mt-20">
+        <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+          <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde" class="w-full h-[280px] object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+        </div>
+        <div>
+          <p class="text-amber-300 text-sm font-medium uppercase tracking-widest mb-2">What Drives Us</p>
+          <h2 class="text-4xl md:text-5xl font-bold" style="font-family:'Fraunces',serif;">Our Mission</h2>
+        </div>
+        <p class="text-amber-50/80 text-base leading-relaxed">Our mission is to simplify the real estate journey by providing high-quality properties, trusted guidance, and seamless experiences.</p>
+      </div>
+    </div>
+  </section>
+  
+
+  <!-- ══════════════════════════════ NEIGHBORHOODS ══════════════════════════════ -->
+  <section class="px-10 md:px-20 py-20 bg-[#f0f4fc]">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-14">
+      <div>
+        <p class="text-blue-600 text-sm font-medium uppercase tracking-widest mb-2">Explore Areas</p>
+        <h2 class="text-4xl md:text-5xl font-medium" style="font-family:'Fraunces',serif;">Property Neighborhoods</h2>
+      </div>
+      <p class="text-gray-500 max-w-md leading-relaxed">Experience thoughtfully designed neighborhoods where quality living meets convenience.</p>
+    </div>
+
+    <div class="mb-6 prop-card relative rounded-2xl overflow-hidden shadow-lg cursor-pointer group">
+      <img src="https://sunriseandpartners.com/wp-content/uploads/2019/05/real-1-600x450-1.jpg" class="prop-img w-full h-[460px] object-cover">
+      <div class="prop-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-80"></div>
+      <div class="absolute bottom-0 left-0 p-8 w-full">
+        <span class="inline-block bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full mb-3 uppercase tracking-wider">Featured</span>
+        <h3 class="text-3xl text-white mb-3" style="font-family:'Fraunces',serif;">Luxury Villa</h3>
+        <div class="flex items-center gap-8 text-white/80 text-sm">
+          <span class="flex items-center gap-2"><i class="fas fa-border-all"></i> 1,800 Sq Ft</span>
+          <span class="flex items-center gap-2"><i class="fas fa-bed"></i> 5 Bedroom</span>
+          <span class="flex items-center gap-2"><i class="fas fa-bath"></i> 4 Bathroom</span>
+          <span class="ml-auto bg-white/20 backdrop-blur-sm text-white text-sm font-medium px-5 py-2 rounded-full border border-white/30 opacity-0 group-hover:opacity-100 transition-all duration-300">View Property →</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div class="md:col-span-2 prop-card relative rounded-2xl overflow-hidden shadow-lg cursor-pointer group">
+        <img src="https://torbitalimited.com/wp-content/uploads/2018/09/real-estate.jpg" class="prop-img w-full h-[380px] object-cover">
+        <div class="prop-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-80"></div>
+        <div class="absolute bottom-0 left-0 p-6 w-full">
+          <h4 class="text-2xl text-white mb-2" style="font-family:'Fraunces',serif;">Modern Family Home</h4>
+          <div class="flex items-center gap-6 text-white/80 text-sm">
+            <span class="flex items-center gap-2"><i class="fas fa-border-all"></i> 1,500 Sq Ft</span>
+            <span class="flex items-center gap-2"><i class="fas fa-bed"></i> 4 Bedroom</span>
+            <span class="ml-auto bg-white/20 backdrop-blur-sm text-white text-sm font-medium px-4 py-1.5 rounded-full border border-white/30 opacity-0 group-hover:opacity-100 transition-all duration-300">View →</span>
+          </div>
+        </div>
+      </div>
+      <div class="prop-card relative rounded-2xl overflow-hidden shadow-lg cursor-pointer group">
+        <img src="https://fskyhomes.com/wp-content/uploads/2025/08/ff5d76ecf2e57a99f85e2ce4a3a68f0b.jpg" class="prop-img w-full h-[380px] object-cover">
+        <div class="prop-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-80"></div>
+        <div class="absolute bottom-0 left-0 p-6 w-full">
+          <h4 class="text-2xl text-white mb-2" style="font-family:'Fraunces',serif;">Cozy Apartment</h4>
+          <div class="flex flex-col gap-1 text-white/80 text-sm">
+            <span class="flex items-center gap-2"><i class="fas fa-bed"></i> 2 Bedroom</span>
+          </div>
+          <span class="mt-3 inline-block bg-white/20 backdrop-blur-sm text-white text-sm font-medium px-4 py-1.5 rounded-full border border-white/30 opacity-0 group-hover:opacity-100 transition-all duration-300">View →</span>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-center">
+      <button class="px-10 py-3 bg-blue-700 rounded-full text-white font-semibold hover:bg-blue-800 transition-all duration-300 shadow-lg">See More Neighborhoods</button>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════ GLASS TESTIMONIALS ══════════════════════════════ -->
+  <section id="testimonials-section">
+
+    <div style="position:absolute;inset:0;background-image:url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22 opacity=%220.04%22/%3E%3C/svg%3E');pointer-events:none;z-index:0;"></div>
+
+    <div style="position:relative;z-index:1;max-width:1200px;margin:0 auto;">
+      <div class="text-center mb-16">
+        <p class="text-blue-400 text-xs font-medium uppercase tracking-widest mb-3">Client Stories</p>
+        <h2 style="font-family:'Fraunces',serif;font-size:clamp(2rem,4vw,3rem);color:#fff;margin-bottom:12px;">
+          What Our Clients <span class="italic" style="color:#60a5fa;">Are Saying</span>
+        </h2>
+        <p style="color:rgba(255,255,255,0.45);max-width:520px;margin:0 auto;line-height:1.75;font-size:15px;">
+          Real experiences from people who found their dream home through EstateVita.
+        </p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:20px;" class="testi-grid">
+
+        <div class="testi-glass testi-featured" style="grid-column:span 2;">
+          <span class="quote-mark">"</span>
+          <div class="stars">★★★★★</div>
+          <p style="font-size:16px;line-height:1.8;color:rgba(255,255,255,0.8);">
+            EstateVita completely transformed how I thought about buying property in Lagos. The team was incredibly knowledgeable, patient, and transparent at every step. I found my dream villa in Banana Island within three weeks — an experience I'll never forget.
+          </p>
+          <div style="display:flex;align-items:center;gap:14px;border-top:1px solid rgba(255,255,255,0.08);padding-top:20px;margin-top:auto;">
+            <div class="avatar">WL</div>
+            <div>
+              <p class="author-name">William Lanre</p>
+              <p class="author-role">Manager, Mastercard Nigeria</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-glass">
+          <span class="quote-mark">"</span>
+          <div class="stars">★★★★★</div>
+          <p>Impressed by the quality of properties and the level of transparency throughout the whole process.</p>
+          <div style="display:flex;align-items:center;gap:12px;border-top:1px solid rgba(255,255,255,0.08);padding-top:16px;margin-top:auto;">
+            <div class="avatar" style="background:linear-gradient(135deg,#06b6d4,#3b82f6);">AH</div>
+            <div>
+              <p class="author-name">Akin Hakimi</p>
+              <p class="author-role">Professional Footballer</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-glass">
+          <span class="quote-mark">"</span>
+          <div class="stars">★★★★<span style="opacity:.4;">★</span></div>
+          <p>They helped us navigate the complex world of real estate financing with ease and real confidence.</p>
+          <div style="display:flex;align-items:center;gap:12px;border-top:1px solid rgba(255,255,255,0.08);padding-top:16px;margin-top:auto;">
+            <div class="avatar" style="background:linear-gradient(135deg,#8b5cf6,#ec4899);">TH</div>
+            <div>
+              <p class="author-name">Tom Holland</p>
+              <p class="author-role">Film Producer</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-glass" style="grid-column:span 2;">
+          <span class="quote-mark">"</span>
+          <div class="stars">★★★★★</div>
+          <p>Selling my property with EstateVita was fast, seamless, and efficient. They connected me with serious buyers within days and handled every negotiation with professionalism. Outstanding service from start to finish.</p>
+          <div style="display:flex;align-items:center;gap:12px;border-top:1px solid rgba(255,255,255,0.08);padding-top:16px;margin-top:auto;">
+            <div class="avatar" style="background:linear-gradient(135deg,#f59e0b,#ef4444);">BS</div>
+            <div>
+              <p class="author-name">Bolu Shittu</p>
+              <p class="author-role">Executive Director</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-glass">
+          <span class="quote-mark">"</span>
+          <div class="stars">★★★★★</div>
+          <p>The search interface and team support made finding our perfect home an absolute pleasure.</p>
+          <div style="display:flex;align-items:center;gap:12px;border-top:1px solid rgba(255,255,255,0.08);padding-top:16px;margin-top:auto;">
+            <div class="avatar" style="background:linear-gradient(135deg,#10b981,#3b82f6);">CI</div>
+            <div>
+              <p class="author-name">Chidi Ikenna</p>
+              <p class="author-role">Tech Entrepreneur</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-glass">
+          <span class="quote-mark">"</span>
+          <div class="stars">★★★★★</div>
+          <p>First-time buyer here — EstateVita made the whole process feel effortless and exciting.</p>
+          <div style="display:flex;align-items:center;gap:12px;border-top:1px solid rgba(255,255,255,0.08);padding-top:16px;margin-top:auto;">
+            <div class="avatar" style="background:linear-gradient(135deg,#f43f5e,#fb923c);">SA</div>
+            <div>
+              <p class="author-name">Sade Adeyemi</p>
+              <p class="author-role">Architect</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════ CTA BANNER ══════════════════════════════ -->
+  <section class="relative py-28 px-6 md:px-16 overflow-hidden">
+    <div class="absolute inset-0">
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" class="w-full h-full object-cover"/>
+      <div class="absolute inset-0 bg-gradient-to-r from-[#0f2d4f]/90 via-[#1e3a5f]/80 to-[#0f2d4f]/90"></div>
+    </div>
+    <div class="relative z-10 text-center max-w-3xl mx-auto">
+      <p class="text-blue-300 text-sm font-medium uppercase tracking-widest mb-4">Ready to Begin?</p>
+      <h2 class="text-white text-4xl md:text-5xl font-bold mb-6 leading-tight" style="font-family:'Fraunces',serif;">
+        Find Your Perfect Home<br><span class="text-blue-400 italic">With EstateVita</span>
+      </h2>
+      <p class="text-white/70 text-lg mb-10 leading-relaxed">Discover exceptional experiences that turn property dreams into reality.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <button class="px-10 py-4 rounded-full bg-blue-600 text-white font-semibold hover:bg-blue-500 transition-all duration-300 shadow-xl">Browse Properties</button>
+        <button class="px-10 py-4 rounded-full border-2 border-white/40 text-white font-semibold hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">Learn More</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════ FOOTER ══════════════════════════════ -->
+  <footer class="bg-[#07141c] text-white px-10 md:px-20 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <i class="fa-solid fa-house text-blue-500 text-xl"></i>
+          <h2 class="brand-name">Estatevita</h2>
+        </div>
+        <p class="text-gray-400 leading-relaxed text-sm">Delivering your complete real estate experience with quality, comfort, and trust.</p>
+      </div>
+      <div>
+        <h3 class="text-base font-semibold mb-5 text-white/90 uppercase tracking-wider">Quick Links</h3>
+        <ul class="space-y-3 text-gray-400 text-sm">
+          <li class="hover:text-white cursor-pointer transition">Home</li>
+          <li class="hover:text-white cursor-pointer transition">About Us</li>
+          <li class="hover:text-white cursor-pointer transition">Properties</li>
+          <li class="hover:text-white cursor-pointer transition">Buy</li>
+          <li class="hover:text-white cursor-pointer transition">Sell</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-base font-semibold mb-5 text-white/90 uppercase tracking-wider">Services</h3>
+        <ul class="space-y-3 text-gray-400 text-sm">
+          <li class="hover:text-white cursor-pointer transition">Finance a Home</li>
+          <li class="hover:text-white cursor-pointer transition">Sell a Home</li>
+          <li class="hover:text-white cursor-pointer transition">Rent a Home</li>
+          <li class="hover:text-white cursor-pointer transition">Property Management</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-base font-semibold mb-5 text-white/90 uppercase tracking-wider">Contact</h3>
+        <p class="text-gray-400 mb-3 text-sm leading-relaxed">Queen Drive, Ikoyi<br/>Lagos, Nigeria</p>
+        <p class="text-gray-400 mb-2 text-sm">+234 3494393214</p>
+        <p class="text-gray-400 text-sm">info@estatevita.com</p>
+      </div>
+      <div>
+        <h3 class="text-base font-semibold mb-5 text-white/90 uppercase tracking-wider">Newsletter</h3>
+        <p class="text-blue-400 mb-4 text-sm">Subscribe to receive exclusive offers.</p>
+        <div class="flex rounded-lg overflow-hidden border border-blue-400/40">
+          <input type="email" placeholder="Email Address" class="w-full px-4 py-2.5 bg-transparent outline-none text-white placeholder-gray-500 text-sm"/>
+          <button class="bg-blue-600 text-white px-4 text-sm font-medium hover:bg-blue-700 transition">JOIN</button>
+        </div>
+        <div class="flex gap-5 mt-6 text-gray-400 text-lg">
+          <i class="fa-brands fa-instagram cursor-pointer hover:text-white transition"></i>
+          <i class="fa-brands fa-facebook-f cursor-pointer hover:text-white transition"></i>
+          <i class="fa-brands fa-youtube cursor-pointer hover:text-white transition"></i>
+          <i class="fa-brands fa-x-twitter cursor-pointer hover:text-white transition"></i>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-blue-900 mt-12 pt-6 flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm">
+      <p>© 2026 EstateVita. All rights reserved.</p>
+      <div class="flex gap-6 mt-4 md:mt-0">
+        <span class="cursor-pointer hover:text-white transition">Privacy Policy</span>
+        <span class="cursor-pointer hover:text-white transition">Terms of Service</span>
+        <span class="cursor-pointer hover:text-white transition">Cookie Policy</span>
+      </div>
+    </div>
+  </footer>
+
+
+
+  <script>
+
+    lucide.createIcons();
+    /* ── Navbar scroll ── */
+    const navbar = document.getElementById('navbar');
+    const navLink=document.getElementById('navLinks');
+    const brand=document.getElementById('brandName');
+    const logLink =document.getElementById('logLink');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('navbar-scrolled', window.scrollY > 60);
+    });
+       window.addEventListener('scroll', () => {
+      navLink.classList.toggle('navbar-scrolled-text', window.scrollY > 60);
+    });
+        window.addEventListener('scroll', () => {
+      brand.classList.toggle('navbar-scrolled-text', window.scrollY > 60);
+    });
+        window.addEventListener('scroll', () => {
+      logLink.classList.toggle('navbar-scrolled-text', window.scrollY > 60);
+    });
+
+    /* ── Mobile menu ── */
+    function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const icon = document.getElementById('menuIcon');
+      menu.classList.toggle('hidden');
+      icon.classList.toggle('fa-bars');
+      icon.classList.toggle('fa-times');
+    }
+    const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show');
+    }
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.reveal, .reveal-x').forEach(el => {
+  observer.observe(el);
+});
+    /* ── Animated counters ── */
+    function animateCounter(el) {
+      const target = parseInt(el.dataset.count);
+      const suffix = el.dataset.suffix || '';
+      const duration = 1600;
+      const step = Math.ceil(target / (duration / 16));
+      let current = 0;
+      const timer = setInterval(() => {
+        current = Math.min(current + step, target);
+        el.textContent = current + suffix;
+        if (current >= target) clearInterval(timer);
+      }, 16);
+    }
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { animateCounter(entry.target); counterObserver.unobserve(entry.target); }
+      });
+    }, { threshold: 0.4 });
+    document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(el));
+
+    /* ══════════════════════════════════════════════════════
+       GSAP SCROLL ANIMATIONS
+    ══════════════════════════════════════════════════════ */
+    gsap.registerPlugin(ScrollTrigger);
+
+    /* ── 1. FAN GALLERY: images fly in from right x-axis ── */
+    const fanImgs = document.querySelectorAll('.fan-img');
+
+    const fanPositions = [
+      { rotate: -8,  x: -340, y: -24,  scale: 1    },
+      { rotate: 18,  x: -230, y: -24,  scale: 1    },
+      { rotate: -3,  x: -105, y: -12,  scale: 1    },
+      { rotate: 11,  x: 0,    y: 28,   scale: 1.1  },
+      { rotate: -5,  x: 130,  y: -24,  scale: 1    },
+      { rotate: 18,  x: 245,  y: -16,  scale: 1    },
+      { rotate: -10, x: 345,  y: -8,   scale: 1    },
+    ];
+
+    fanImgs.forEach((img, i) => {
+      const final = fanPositions[i];
+      gsap.set(img, {
+        opacity: 0,
+        x: window.innerWidth * 0.9,
+        y: final.y,
+        rotate: final.rotate + 5,
+        scale: final.scale,
+      });
+
+      ScrollTrigger.create({
+        trigger: '#gallery-section',
+        start: 'top 75%',
+        once: true,
+        onEnter: () => {
+          gsap.to(img, {
+            opacity: 1,
+            x: final.x,
+            y: final.y,
+            rotate: final.rotate,
+            scale: final.scale,
+            duration: 0.85,
+            delay: i * 0.1,
+            ease: 'expo.out',
+          });
+        }
+      });
+    });
+
+    /* ── 2. BUILDING SECTION: smooth zoom-in on scroll ── */
+    const img = document.getElementById("buildingImg");
+
+  window.addEventListener("scroll", () => {
+    const section = document.getElementById("building-section");
+    const rect = section.getBoundingClientRect();
+
+    const windowHeight = window.innerHeight;
+
+    // calculate scroll progress inside section
+    const progress = Math.min(
+      Math.max((windowHeight - rect.top) / (windowHeight + rect.height), 0),
+      1
+    );
+
+    // zoom from 1 → 1.3
+    const scale = 1 + progress * 0.5;
+
+    img.style.transform = `scale(${scale})`;
+  });
+
+
+    /* ── 3. Float-up animation for property cards ── */
+    const floatCards = document.querySelectorAll('.prop-float-card');
+
+    floatCards.forEach((card, i) => {
+      gsap.set(card, { opacity: 0, y: 40 });
+
+      ScrollTrigger.create({
+        trigger: '#building-section',
+        start: 'top 65%',
+        once: true,
+        onEnter: () => {
+          gsap.to(card, {
+            opacity: 1,
+            y: 0,
+            duration: 0.9,
+            delay: i * 0.14,
+            ease: 'power3.out',
+          });
+        }
+      });
+    });
+
+    /* ── 4. Section reveal (generic) ── */
+    gsap.utils.toArray('section').forEach((sec) => {
+      if (sec.id === 'building-section' || sec.id === 'gallery-section') return;
+      gsap.fromTo(sec,
+        { opacity: 0, y: 28 },
+        {
+          opacity: 1, y: 0, duration: 0.7, ease: 'power2.out',
+          scrollTrigger: { trigger: sec, start: 'top 85%', once: true }
+        }
+      );
+    });
+
+    /* ── 5. Testimonial cards stagger in ── */
+    gsap.fromTo('.testi-glass',
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1, y: 0,
+        duration: 0.65,
+        stagger: 0.1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '#testimonials-section',
+          start: 'top 70%',
+          once: true,
+        }
+      }
+    );
+    const texts = [
+  "Your Story",
+  "Your Future",
+  "Luxury Living",
+  "Your Dream"
+];
+
+let i = 0;
+const el = document.getElementById("changingText");
+
+setInterval(() => {
+  el.classList.remove("fade-text");
+  void el.offsetWidth;
+
+  i = (i + 1) % texts.length;
+  el.textContent = texts[i];
+
+  el.classList.add("fade-text");
+}, 2500);
+    // cardscroll
+   function scrollListings(direction) {
+    const container = document.getElementById('scrollbox');
+    
+    if (!container) {
+        console.error("Scroll container not found! Make sure the ID is 'scrollbox'");
+        return;
+    }
+
+    const scrollAmount = 300;   // You can adjust this value
+
+    if (direction === 'left') {
+        container.scrollBy({ 
+            left: -scrollAmount, 
+            behavior: 'smooth' 
+        });
+    } 
+    else if (direction === 'right') {
+        container.scrollBy({ 
+            left: scrollAmount, 
+            behavior: 'smooth' 
+        });
+    }
+}
+  </script>
+</body>
+</html>
