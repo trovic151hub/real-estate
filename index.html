@@ -425,7 +425,9 @@
     transform: translateX(-30px);
     transition: all 0.6s ease;
   }
-
+#gallery-section{
+    padding: 60px 0px 0  !important;
+}
   .reveal-x.show {
     opacity: 1;
     transform: translateX(0);
@@ -439,24 +441,44 @@
     font-size: 2rem;
   }
     section {
-    padding-left: 16px !important;
-    padding-right: 16px !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
   }
 
   .listing-card {
-    min-width: 260px;
+    min-width: 300px !important;
   }
     .vision-section img {
     height: 320px;
   }
 
     }
+    .grid-img {
+  transition: transform 0.8s ease, opacity 0.8s ease;
+  opacity: 0;
+}
+
+/* Initial split state */
+.left-img {
+  transform: translateX(-60px);
+}
+
+.right-img {
+  transform: translateX(60px);
+}
+
+/* When active (joined) */
+.grid-show .left-img,
+.grid-show .right-img {
+  transform: translateX(0);
+  opacity: 1;
+}
   </style>
 </head>
 <body class="bg-white">
 
   <!-- ══════════════════════════════ NAVBAR ══════════════════════════════ -->
-  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-10 md:px-24 py-3 transition-all duration-300"
+  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-2 md:px-24 py-3 transition-all duration-300"
     style="background:rgba(255,255,255,0.12);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,0.22);">
 
     <div class="flex items-center gap-2">
@@ -467,33 +489,33 @@
     </div>
 
     <nav id="navLinks" class="hidden md:flex gap-12 text-gray-50 font-medium">
-      <a href="#" class="text-blue-600 font-semibold">
+      <a href="/" class="text-blue-600 font-semibold">
   <i data-lucide="home"></i>Home</a>
-      <a href="#" class="hover:text-blue-600 transition"> <i data-lucide="table-properties"></i>Properties</a>
-      <a href="#" class="hover:text-blue-600 transition"><i data-lucide="info"></i>About</a>
-      <a href="#" class="hover:text-blue-600 transition"><i data-lucide="phone"></i>Contact Us</a>
+      <a href="./properties.html" class="hover:text-blue-600 transition"> <i data-lucide="table-properties"></i>Properties</a>
+      <a href="./about.html" class="hover:text-blue-600 transition"><i data-lucide="info"></i>About</a>
+      <a href="./contact.html" class="hover:text-blue-600 transition"><i data-lucide="phone"></i>Contact Us</a>
     </nav>
 
     <div class="hidden md:flex items-center text-white gap-6">
-      <a href="#" id="logLink" class=" font-medium hover:text-blue-600 transition">Login</a>
+      <a href="#" id="logLink" class=" font-medium hover:text-blue-600 border border-gray-600 px-6 py-2 rounded-full transition">Login</a>
       <div class="border-l-2 h-7 border-gray-400"></div>
       <a href="#" class="border-2 border-blue-600 text-blue-800 px-6 py-2 rounded-full font-medium hover:bg-blue-600 hover:text-white transition-all duration-300">Sign Up</a>
     </div>
     <button id="menuBtn" onclick="toggleMenu()" class="md:hidden text-gray-800 text-2xl focus:outline-none p-1">
-      <i class="fas fa-bars" id="menuIcon"></i>
+      <i data-lucide="text-align-justify"  id="menuIcon"></i>
     </button>
   </header>
 
   <!-- Mobile Menu -->
-  <div id="mobileMenu" class="fixed inset-x-0 top-[60px] z-40 hidden bg-white/95 backdrop-blur-md shadow-xl border-t border-gray-100 md:hidden">
+  <div id="mobileMenu" class="fixed inset-x-0 top-[50px] z-40 hidden bg-white/95 backdrop-blur-md shadow-xl border-t border-gray-100 md:hidden">
     <nav class="flex flex-col px-6 py-6 gap-1">
-      <a href="#" class="text-blue-600 font-semibold py-3 border-b border-gray-100">Home</a>
-      <a href="#" class="text-gray-700 font-medium hover:text-blue-600 py-3 border-b border-gray-100 transition">Properties</a>
-      <a href="#" class="text-gray-700 font-medium hover:text-blue-600 py-3 border-b border-gray-100 transition">About</a>
-      <a href="#" class="text-gray-700 font-medium hover:text-blue-600 py-3 border-b border-gray-100 transition">Contact Us</a>
+      <a href="/" class="text-blue-600 font-semibold py-3 border-b border-gray-100"> <i data-lucide="home"></i>Home</a>
+      <a href="./properties.html" class="text-gray-700 font-medium hover:text-blue-600 py-3 border-b border-gray-100 transition">  <i data-lucide="table-propeties"></i>Properties</a>
+      <a href="./about.html" class="text-gray-700 font-medium hover:text-blue-600 py-3 border-b border-gray-100 transition"> <i data-lucide="info"></i>About</a>
+      <a href="./contact.html" class="text-gray-700 font-mediu m hover:text-blue-600 py-3 border-b border-gray-100 transition"> <i data-lucide="phone"></i>Contact Us</a>
       <div class="flex gap-3 mt-5">
-        <a href="#" class="flex-1 text-center border-2 border-gray-300 text-gray-700 py-2.5 rounded-full font-medium hover:border-blue-400 hover:text-blue-600 transition">Login</a>
-        <a href="#" class="flex-1 text-center bg-blue-600 text-white py-2.5 rounded-full font-medium hover:bg-blue-700 transition">Sign Up</a>
+        <a href="./login.html" class="flex-1 text-center border-2 border-gray-300 text-gray-700 py-2.5 rounded-full font-medium hover:border-blue-400 hover:text-blue-600 transition">Login</a>
+        <a href="./signup.html" class="flex-1 text-center bg-blue-600 text-white py-2.5 rounded-full font-medium hover:bg-blue-700 transition">Sign Up</a>
       </div>
     </nav>
   </div>
@@ -583,24 +605,37 @@
     </div>
 
     <!-- Mobile strip -->
-    <div class="md:hidden overflow-x-auto" style="-webkit-overflow-scrolling:touch;">
-      <div class="flex gap-3 px-6 min-w-max pb-4 pt-2">
-        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" class="w-[150px] h-[210px] object-cover border-4 border-white shadow-xl rounded-xl flex-shrink-0">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs8Befu6WYuwMjiCEr1_rXrQ5RU67TXtC4UA&s" class="w-[150px] h-[210px] object-cover border-4 border-white shadow-xl rounded-xl flex-shrink-0">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6XB9yeL4PjXMuOR4ifjVwhOUYvyPshAN3lw&s" class="w-[150px] h-[210px] object-cover border-4 border-white shadow-xl rounded-xl flex-shrink-0">
-        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c" class="w-[150px] h-[210px] object-cover border-4 border-white shadow-xl rounded-xl flex-shrink-0">
-      </div>
-    </div>
+<div class="md:hidden px-2 py-4">
+  <div id="gridWrapper" class="grid grid-cols-2 gap-2">
+
+    <!-- Top Left -->
+    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
+      class="grid-img left-img w-full h-[200px] object-cover rounded-xl shadow-xl border-2 border-white">
+
+    <!-- Top Right -->
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs8Befu6WYuwMjiCEr1_rXrQ5RU67TXtC4UA&s"
+      class="grid-img right-img w-full h-[200px] object-cover rounded-xl shadow-xl border-2 border-white">
+
+    <!-- Bottom Left -->
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6XB9yeL4PjXMuOR4ifjVwhOUYvyPshAN3lw&s"
+      class="grid-img left-img w-full h-[200px] object-cover rounded-xl shadow-xl border-2  border-white">
+
+    <!-- Bottom Right -->
+    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c"
+      class="grid-img right-img w-full h-[200px] object-cover rounded-xl shadow-xl border-2  border-white">
+
+  </div>
+</div>
 
     <!-- Achievement text -->
-    <div class="mt-20 px-10 md:px-24 pb-20 text-white grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+    <div class="mt-20 px-4 md:px-24 pb-20 text-white grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
       <div>
         <p class="text-blue-400 text-sm font-medium uppercase tracking-widest mb-3">Our Legacy</p>
         <h2 class="leading-tight" style="font-family:'Fraunces',serif;font-size:clamp(2.6rem,5vw,4rem);">
           Lasting <br><span class="italic text-blue-400">Achievement</span>
         </h2>
       </div>
-      <div class="text-gray-300 leading-relaxed text-lg border-l border-white/10 pl-10">
+      <div class="text-gray-300 leading-relaxed text-lg border-l border-white/10">
         <p>Discover your perfect home and begin your story: <span class="text-blue-400 font-medium">Estatevita</span> — where every dream finds its place, every journey begins, and every achievement shines bright.</p>
         <div class="mt-8 flex flex-wrap gap-6">
           <div>
@@ -637,8 +672,8 @@
   <button onclick="scrollListings('right')" class="px-3 py-2 bg-gray-200 rounded-full">→</button>
 </div>
 
-  <div id="scrollbox" class="overflow-x-auto scrollbar-hide">
-  <div class="flex gap-6 w-max snap-x snap-mandatory">
+  <div id="scrollbox" class="overflow-x-auto scrollbar-hide ">
+  <div class="flex gap-4 md:gap-6 w-max snap-x snap-mandatory">
 
     <!-- Card 1 -->
     <div class="listing-card min-w-[380px] snap-start rounded-2xl border border-gray-200 bg-white shadow-sm cursor-pointer">
@@ -787,7 +822,7 @@
   </section>
 
  <!-- ══════════════════════════════ PREMIUM LOCATIONS (formerly Building Scroll) ══════════════════════════════ -->
-<section id="building-section">
+<div id="building-section">
   <div class="building-wrap">
 
     <img
@@ -799,7 +834,7 @@
     >
 
     <div class="building-label text-white">
-  <p class="uppercase tracking-[0.3em] text-xs text-blue-400 mb-3">
+  <p class="uppercase tracking-[0.3em] text-xs text-white-400 mb-3">
     Premium Locations
   </p>
   <h2 class="text-4xl md:text-6xl font-semibold leading-tight">
@@ -809,7 +844,7 @@
 </div>
 
   </div>
-</section>
+</div>
 
   <!-- ══════════════════════════════ SERVICES — What We Offer ══════════════════════════════ -->
   <section class="px-10 md:px-20 py-24" style="background: linear-gradient(135deg, #f0f4ff 0%, #e8efff 50%, #f5f7ff 100%);">
@@ -861,7 +896,8 @@
         </div>
         <p class="text-amber-50/80 text-base leading-relaxed">"At EstateVita, our vision is to redefine modern living by creating timeless, high-quality homes that elevate everyday life."</p>
         <div class="relative rounded-2xl overflow-hidden shadow-2xl mt-2">
-          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" class="w-full h-[280px] object-cover">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
+           class="w-full h-[280px] object-cover">
           <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
         </div>
       </div>
@@ -1339,6 +1375,20 @@ setInterval(() => {
         });
     }
 }
+ const grid = document.getElementById("gridWrapper");
+
+  const observe = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          grid.classList.add("grid-show");
+        }
+      });
+    },
+    { threshold: 0.3 }
+  );
+
+  observe.observe(grid);
   </script>
 </body>
 </html>

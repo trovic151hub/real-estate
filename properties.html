@@ -48,6 +48,10 @@
     .log-btn {
       display: none !important;
     }
+           section {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
   }
   </style>
 </head>
@@ -91,22 +95,55 @@
   </div>
 
   <!-- PAGE HERO -->
-  <section class="relative pt-40 pb-20 px-10 md:px-24 bg-gradient-to-br from-[#0f2d4f] to-[#1e5799] overflow-hidden">
-    <div class="absolute inset-0 opacity-10">
-      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" class="w-full h-full object-cover">
+ <section class="relative pt-28 pb-16 px-5 sm:px-8 md:px-16 lg:px-24 overflow-hidden">
+
+  <!-- Background Image -->
+  <img 
+    src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" 
+    class="absolute inset-0 w-full h-full object-cover opacity-40"
+  >
+
+  <!-- Dark Premium Gradient Overlay -->
+  <div class="absolute inset-0 bg-gradient-to-r from-black/95 via-black/70 to-black/30"></div>
+
+  <!-- Content -->
+  <div class="relative z-10 max-w-3xl">
+    
+    <p class="text-blue-300 text-xs sm:text-sm font-medium uppercase tracking-widest mb-3">
+      Browse Our Collection
+    </p>
+
+    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-5 leading-tight">
+      Find Your <span class="italic text-blue-300">Dream</span> Property
+    </h1>
+
+    <p class="text-blue-100/80 text-sm sm:text-base md:text-lg max-w-xl">
+      Explore hundreds of premium properties across Lagos and beyond. 
+      Filter by type, price, and location to find the perfect match.
+    </p>
+
+    <!-- Stats -->
+    <div class="flex flex-wrap gap-6 sm:gap-8 mt-10 pt-6 border-t border-white/10">
+      
+      <div>
+        <p class="text-2xl sm:text-3xl font-bold text-white">1,200+</p>
+        <p class="text-blue-200 text-xs sm:text-sm mt-1">Listings</p>
+      </div>
+
+      <div>
+        <p class="text-2xl sm:text-3xl font-bold text-white">15+</p>
+        <p class="text-blue-200 text-xs sm:text-sm mt-1">Locations</p>
+      </div>
+
+      <div>
+        <p class="text-2xl sm:text-3xl font-bold text-white">₦50B+</p>
+        <p class="text-blue-200 text-xs sm:text-sm mt-1">In Sales</p>
+      </div>
+
     </div>
-    <div class="relative z-10 max-w-3xl">
-      <p class="text-blue-300 text-sm font-medium uppercase tracking-widest mb-3">Browse Our Collection</p>
-      <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-5 leading-tight">Find Your <span class="italic text-blue-300">Dream</span> Property</h1>
-      <p class="text-blue-100/80 text-base md:text-lg">Explore hundreds of premium properties across Lagos and beyond. Filter by type, price, and location to find the perfect match.</p>
-    </div>
-    <!-- Stats bar -->
-    <div class="relative z-10 flex flex-wrap gap-8 mt-10 pt-8 border-t border-white/10">
-      <div><p class="text-3xl font-bold text-white">1,200+</p><p class="text-blue-200 text-sm mt-1">Listings</p></div>
-      <div><p class="text-3xl font-bold text-white">15+</p><p class="text-blue-200 text-sm mt-1">Locations</p></div>
-      <div><p class="text-3xl font-bold text-white">₦50B+</p><p class="text-blue-200 text-sm mt-1">In Sales</p></div>
-    </div>
-  </section>
+  </div>
+
+</section>
 
   <!-- SEARCH & FILTER BAR -->
   <section class="px-4 md:px-24 py-4 md:py-6 bg-white shadow-sm sticky top-[60px] z-40">
@@ -446,6 +483,22 @@
     </div>
   </section>
 
+
+<!-- PROPERTIES -->
+<section class="ps">
+  <div class="pt">
+    <p class="rc">Showing <strong id="cnt">12</strong> properties</p>
+    <select class="ss" id="srt">
+      <option value="default">Sort: Default</option>
+      <option value="na">Name A–Z</option>
+      <option value="nd">Name Z–A</option>
+      <option value="sa">Sq Ft ↑</option>
+      <option value="sd">Sq Ft ↓</option>
+    </select>
+  </div>
+  <div class="pg" id="pg"></div>
+  <div class="nr" id="nr"><div class="ni2">🏠</div><h3>No properties found</h3><p>Try adjusting your search or filters</p></div>
+</section>
   <!-- FOOTER -->
   <footer class="bg-[#07141c] text-white px-10 md:px-20 py-12 mt-10">
     <div class="flex flex-col md:flex-row justify-between items-center gap-4">
